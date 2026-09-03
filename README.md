@@ -1,6 +1,21 @@
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 
+https://arxiv.org/abs/1807.03819?utm_source=chatgpt.com
+Universal Transformers
+
+https://arxiv.org/abs/2502.05171
+Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach
+
+https://arxiv.org/abs/2604.07822
+Loop, Think, & Generalize: Implicit Reasoning in Recurrent-Depth Transformers
+
+https://arxiv.org/html/2606.31779v2
+Bridging the Gap Between Latent and Explicit Reasoning with Looped Transformers
+
+https://arxiv.org/abs/2609.01343
+SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers
+
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 OpenAI의 최신 AI인 Astra는 사람에게 보이는 자연어 문장보다, 모델 내부의 활성화값을 이용해 더 많이 추론하는 구조를 쓴다고 알려져 있습니다. 이를 불투명 추론이라고 부를 수 있습니다. 사실이라면, AI 안전 측면에서 매우 우려스러운 변화입니다.
 
