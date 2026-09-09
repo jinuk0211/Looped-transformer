@@ -62,6 +62,8 @@ Bridging the Gap Between Latent and Explicit Reasoning with Looped Transformers
 https://arxiv.org/abs/2609.01343
 SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers
 
+https://sebastianraschka.com/blog/2026/openai-astra-looped-transformers.html
+
 반복형 아키텍처는 무엇을 바꾸는가
 ========================================
 《디 인포메이션》의 보도에 따르면, GPT 6 Astra는 **반복형 트랜스포머(looped transformer)** 구조를 사용한다.
@@ -134,37 +136,5 @@ Huginn 연구진은 현실적인 절충안을 사용했다. 순전파, 즉 실�
 
 <img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
-**5. 관련 연구와 초기 실용적 성과**
-=============================
-트랜스포머의 층을 재사용한다는 발상 자체는 새롭지 않다.
-Universal Transformers는 2018년에 반복 처리를 도입했다. ALBERT는 여러 층이 가중치를 공유하게 해 파라미터 수를 줄였다. Mixture of Recursions는 토큰마다 서로 다른 양의 연산을 거치도록 보내는 방법을 탐구했다.
-공개 모델인 **Nanbeige4.2 3B**는 특히 직접적인 사례다.
-
-이 모델의 설정에는 22개 층과 `num_loops: 2`가 명시되어 있다. 즉, 22개 층을 두 번 통과한다. 파라미터 수는 대략 22층 모델 수준이지만, 연산 깊이는 약 44층 모델에 해당한다.
-22개 층, 반복 횟수 2회, Apache 2.0 라이선스. 반복 구조가 이미 공개 모델의 설정에서 확인되는 것이다.
-그동안 반복형 트랜스포머는 흥미로운 연구 주제였지만, 주류 방식으로 자리 잡지는 못했다. 부족했던 것은 **규모를 키워도 효과가 유지된다는 강한 실험적 근거**였다.
-
-9월 1일 공개된 **SMELT**는 반복형 트랜스포머와 기존 트랜스포머를 동일한 조건에서 비교하기 위해 설계된 연구다.
-연구진은 파라미터 수, 학습 연산량, KV 캐시 크기를 통제해 비교했다. 그 결과 반복형 모델은 같은 성능에 도달하는 데 필요한 학습 연산량이 **6.8~18% 적었다.** 가장 큰 이득은 코드 분야에서 나타났다.
-어텐션의 작동 방식에도 변화가 관찰됐다.
-기존 트랜스포머에서는 문장 앞부분의 토큰들이 종종 **‘어텐션 싱크(attention sink)’**, 즉 주의가 과도하게 몰리는 지점이 된다. 의미상 중요하지 않아도 다른 토큰보다 훨씬 많은 주의를 받는 것이다.
-그런데 같은 블록을 두 번째로 통과한 뒤에는, 어텐션이 실제로 더 관련 있는 토큰 쪽으로 이동했다.
-두 번째 반복은 첫 번째 계산을 단순히 되풀이한 것이 아니다. 첫 번째 결과를 바탕으로 **더 필요한 정보에 집중하는 처리**를 수행한 것이다.
-SMELT가 앞으로 모든 모델을 반복형으로 만들어야 한다고 증명한 것은 아니다. 다만 주요 실험 조건을 맞춘 뒤에도 반복 구조가 경쟁력을 유지한다는 점은 보여준다.
-이제 질문은 “반복 깊이가 작동하는가?”를 넘어, **“이 방식을 얼마나 큰 규모까지 확장할 수 있는가?”**로 옮겨가고 있다.
-
-원문에 포함된 참고자료:
-
-* [OpenAI의 GPT 6 Astra 발표](https://openai.com/index/gpt-6-astra/)
-* [GPT 6 Astra와 AGI에 관한 Greg Brockman의 발언](https://www.axios.com/2026/09/03/openai-astra-gpt-6-agi-brockman)
-* [GPT 6 Astra의 사이버보안 위험 등급 ‘Critical’](https://www.unite.ai/openai-releases-gpt-6-astra-its-first-model-rated-critical-for-cyber/)
-* [Ilya Sutskever의 딥러닝 추천 자료](https://github.com/dzyim/ilya-sutskever-recommended-reading)
-* [Astra와 반복형 트랜스포머에 관한 The Verge 보도](https://www.theverge.com/ai-artificial-intelligence/988334/openai-astra-ai-monitoring-safety)
-* [잠재 추론을 통한 추론 시 연산량 확장 연구](https://arxiv.org/abs/2502.05171)
-* [Mixture of Recursions](https://arxiv.org/abs/2507.10524)
-* [Nanbeige4.2 3B 모델](https://huggingface.co/Nanbeige/Nanbeige4.2-3B)
-* [SMELT 논문](https://arxiv.org/abs/2609.01343)
-* [Astra의 추론 구조를 둘러싼 AI 안전성 우려](https://techcrunch.com/2026/09/02/openais-new-reasoning-technique-alarms-ai-safety-experts/)
-* [Sebastian Raschka의 Astra 및 반복형 트랜스포머 분석](https://sebastianraschka.com/blog/2026/openai-astra-looped-transformers.html)
 * [사고 과정의 모니터링 가능성에 관한 연구](https://arxiv.org/abs/2507.11473)
 * [Simon Willison의 GPT 6 Astra 분석](https://simonwillison.net/2026/Sep/3/gpt6-astra/)
