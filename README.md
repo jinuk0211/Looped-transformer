@@ -4,11 +4,11 @@ OPENAI GPT 6 ASTRA 리서치
 
 # RSI (recursive self improvement)
 최근 OpenAI astra 시스템 카드에는 GPT 5.6 Sol을 사용해 훈련을 진행하였다는 사실이 적혀있고 다음 세대의 Pretrained Bel 모델 역시 Astra를 사용해 훈련중이라는 사실이 적혀있다. 2026년 9월 6일 오픈 AI 수석연구원 Jakub Pachocki이 작성한 보고서에 의하면 
-"우리가 이제 인간과 상당히 다른 형태의 지능을 만들고 있고, 이 지능이 자기 자신의 연구·개발까지 가속하기 시작하는 단계에 접근하고 있으니 속도를 통제해야 한다"를 주장하고 있다. Pachocki의 관점은 다음과 같은데
+"우리가 이제 인간과 상당히 다른 형태의 지능을 만들고 있고, 이 지능이 자기 자신의 연구·개발까지 가속하기 시작하는 단계에 접근하고 있으니 속도를 통제해야 한다"를 주장하고 있다. 
+
 <img width="796" height="515" alt="image" src="https://github.com/user-attachments/assets/6b21efac-08a5-45a4-8d39-f2fae0ec1147" />
 
-
-인간의 두뇌 → 진화 + 생물학 + 사회적 학습으로 만들어지지만 AI는 → 엄청난 계산량으로 optimization을 반복해서 자라나게 된다. 그래서 그는 AI를 우리가 하나하나 설계한 프로그램이라기보다 “grown more than designed”, 즉 설계했다기보다는 길러낸 복잡한 시스템이라고 표현한다. 내부의 작은 메커니즘은 Interpretability는 분석할 수 있을지 언정 전체적으로 왜 그런 지능적 행동이 나오는지는 뇌과학이 인간 뇌를 완전히 이해하지 못하는 것과 비슷하게 설명하기 어렵다는 주장이다 (이는 이후 recurrent depth 구조와도 통함)
+Pachocki의 관점은 다음과 같은데 인간의 두뇌 → 진화 + 생물학 + 사회적 학습으로 만들어지지만 AI는 → 엄청난 계산량으로 optimization을 반복해서 자라나게 된다. 그래서 그는 AI를 우리가 하나하나 설계한 프로그램이라기보다 “grown more than designed”, 즉 설계했다기보다는 길러낸 복잡한 시스템이라고 표현한다. 내부의 작은 메커니즘은 Interpretability는 분석할 수 있을지 언정 전체적으로 왜 그런 지능적 행동이 나오는지는 뇌과학이 인간 뇌를 완전히 이해하지 못하는 것과 비슷하게 설명하기 어렵다는 주장이다 (이는 이후 recurrent depth 구조와도 통함)
 
 Pachocki는 2023년 중반 “RLSlow”라는 내부 연구 프로젝트에서 reasoning model을 스케일하면 pretrained model이 자체적인 chain-of-thought 추론 능력을 발휘하도록 만들 수 있다는 결과를 처음 봤다고 한다.
 그 당시 Pachocki와 Szymon이 밤새 사무실에 있으면서 생각한 게, “벤치마크가 얼마나 오르지?”가 아니라 “우리 생전에 인간보다 의미 있게 똑똑한 기계를 실제로 보게 되겠구나.” 였다고 적는다.
