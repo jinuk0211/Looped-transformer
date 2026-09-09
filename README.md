@@ -52,7 +52,7 @@ Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라
 
 https://x.com/ClaudeDevs/status/2097369738968195513
 
-https://arxiv.org/abs/2607.07663
+https://arxiv.org/abs/2607.07663 Recursive Self-Improvement in AI: From Bounded Self-Refinement to Autonomous Research Loops
 
 https://arxiv.org/abs/1807.03819?utm_source=chatgpt.com
 Universal Transformers
