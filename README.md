@@ -4,6 +4,9 @@
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
 # RSI (recursive self improvement)
+<img width="2048" height="894" alt="image" src="https://github.com/user-attachments/assets/39466bba-f0e6-4614-af86-0465b80fc0c4" />
+<img width="1170" height="707" alt="image" src="https://github.com/user-attachments/assets/270e5c3c-13b2-4355-b5cc-a721ea94f9e4" />
+
 <img width="660" height="268" alt="image" src="https://github.com/user-attachments/assets/407d21a7-6950-4d50-ac18-c8878034c810" />
 <img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 <img width="680" height="680" alt="image" src="https://github.com/user-attachments/assets/d0060010-03c2-417e-8d63-7c1d34769f4a" />
