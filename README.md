@@ -136,5 +136,3 @@ Huginn 연구진은 현실적인 절충안을 사용했다. 순전파, 즉 실�
 
 <img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
-* [사고 과정의 모니터링 가능성에 관한 연구](https://arxiv.org/abs/2507.11473)
-* [Simon Willison의 GPT 6 Astra 분석](https://simonwillison.net/2026/Sep/3/gpt6-astra/)
