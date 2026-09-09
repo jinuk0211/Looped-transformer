@@ -47,12 +47,12 @@ Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라
 최근 트위터에서 모델 출시 속도가 가속화되고 있는 점, 제프딘과 같은 개발자가 Discovery loop와 같은 RSI를 기반으로하는 회사가 2026년에 들어서면서 폭발적으로 증가하고 있다는점, 나비에-스토크스 방정식과 같은 문제를 search, loop로 풀어내는점을 보아 프론티어 모델 내부에서는 AI 지능이 스스로를 발전시키고 있다는 의견이 지배적
 
 # Looped-transformer
-<img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 <img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
+참조문헌
 https://x.com/ClaudeDevs/status/2097369738968195513
+
 https://arxiv.org/abs/2607.07663
-<img width="1165" height="969" alt="image" src="https://github.com/user-attachments/assets/7bd87538-fb53-41fb-93c5-a211f6af215a" />
 
 https://arxiv.org/abs/1807.03819?utm_source=chatgpt.com
 Universal Transformers
@@ -76,6 +76,7 @@ SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers
 OpenAI가 전체 기술 사양을 공개하지 않았기 때문에 정확한 구현 방식은 알려져 있지 않다. 다만 이 구조의 기본 원리는 이미 공개된 연구를 통해 상당 부분 이해할 수 있다.
 
 기존 트랜스포머에서는 모델의 내부 상태인 ‘은닉 상태’가 각 연산 블록을 한 번씩 통과한다. 반면 반복형 트랜스포머는 한 블록에서 나온 결과를 다시 같은 블록에 넣어 처리할 수 있다.
+<img width="1165" height="969" alt="image" src="https://github.com/user-attachments/assets/7bd87538-fb53-41fb-93c5-a211f6af215a" />
 
 쉽게 말하면 **모델 내부에서 초안을 여러 번 다듬는 방식**이다.
 
