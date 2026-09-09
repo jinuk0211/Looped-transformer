@@ -4,6 +4,7 @@
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
 # RSI (recursive self improvement)
+최근 OpenAI astra 시스템 카드에는 GPT 5.6 Sol을 사용해 훈련을 진행하였다는 사실이 적혀있고 다음 세대의 Pretrained Bel 모델 역시 Astra를 사용해 훈련중이라는 사실이 적혀있다.
 <img width="2048" height="894" alt="image" src="https://github.com/user-attachments/assets/39466bba-f0e6-4614-af86-0465b80fc0c4" />
 <img width="1170" height="707" alt="image" src="https://github.com/user-attachments/assets/270e5c3c-13b2-4355-b5cc-a721ea94f9e4" />
 
@@ -13,6 +14,7 @@
 
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
+<img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
 https://x.com/ClaudeDevs/status/2097369738968195513
 https://arxiv.org/abs/2607.07663
