@@ -1,12 +1,13 @@
-https://x.com/ClaudeDevs/status/2097369738968195513
-https://arxiv.org/abs/2607.07663
+# OpenAI GPT 6 Astra 관한 기술 분석 - Looped Transformer, RSI (recursive self improvement)
+<img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
 <img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 
-
+https://x.com/ClaudeDevs/status/2097369738968195513
+https://arxiv.org/abs/2607.07663
 
 https://arxiv.org/abs/1807.03819?utm_source=chatgpt.com
 Universal Transformers
@@ -23,7 +24,7 @@ Bridging the Gap Between Latent and Explicit Reasoning with Looped Transformers
 https://arxiv.org/abs/2609.01343
 SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers
 
-<img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
+
 
 원문의 내용과 수치는 그대로 살리고, 문장은 읽기 편하게 풀어서 번역했어.
 
