@@ -1,7 +1,7 @@
 https://x.com/ClaudeDevs/status/2097369738968195513
 https://arxiv.org/abs/2607.07663
 
-![Uploading image.png…]()
+<img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
