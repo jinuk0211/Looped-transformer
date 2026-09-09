@@ -5,11 +5,16 @@
 
 <img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 
+# RSI (recursive self improvement)
+<img width="660" height="268" alt="image" src="https://github.com/user-attachments/assets/407d21a7-6950-4d50-ac18-c8878034c810" />
+<img width="680" height="680" alt="image" src="https://github.com/user-attachments/assets/d0060010-03c2-417e-8d63-7c1d34769f4a" />
+
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 
 https://x.com/ClaudeDevs/status/2097369738968195513
 https://arxiv.org/abs/2607.07663
+<img width="1165" height="969" alt="image" src="https://github.com/user-attachments/assets/7bd87538-fb53-41fb-93c5-a211f6af215a" />
 
 https://arxiv.org/abs/1807.03819?utm_source=chatgpt.com
 Universal Transformers
