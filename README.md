@@ -11,6 +11,7 @@
 
 Pachocki는 2023년 중반 “RLSlow”라는 내부 연구 프로젝트에서 reasoning model을 스케일하면 pretrained model이 자체적인 chain-of-thought 추론 능력을 발휘하도록 만들 수 있다는 결과를 처음 봤다고 한다.
 그 당시 Pachocki와 Szymon이 밤새 사무실에 있으면서 생각한 게, “벤치마크가 얼마나 오르지?”가 아니라 “우리 생전에 인간보다 의미 있게 똑똑한 기계를 실제로 보게 되겠구나.” 였다고 적는다.
+<img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 
 파호츠키는 현재 내부 결과를 바탕으로 현재의 AI 발전 속도가 RSI 단계까지 이어질 가능성을 강하게 예상한다고 썼다. 앞으로 몇 년 동안 비슷하거나 더 큰 규모의 capability jump가 반복되고, AI가 자신의 개발에 점점 더 많이 참여할 수 있다는 것이다.
 
@@ -53,8 +54,6 @@ Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라
 <img width="2048" height="894" alt="image" src="https://github.com/user-attachments/assets/39466bba-f0e6-4614-af86-0465b80fc0c4" />
 <img width="1170" height="707" alt="image" src="https://github.com/user-attachments/assets/270e5c3c-13b2-4355-b5cc-a721ea94f9e4" />
 
-<img width="660" height="268" alt="image" src="https://github.com/user-attachments/assets/407d21a7-6950-4d50-ac18-c8878034c810" />
-<img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 <img width="680" height="680" alt="image" src="https://github.com/user-attachments/assets/d0060010-03c2-417e-8d63-7c1d34769f4a" />
 
 # Looped-transformer
