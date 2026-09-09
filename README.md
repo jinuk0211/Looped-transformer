@@ -1,10 +1,55 @@
-# OpenAI GPT 6 Astra 관한 기술 분석 - Looped Transformer, RSI 
+<img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9db0950c-8d43-44b9-94ff-3c499a31e37e" /># OpenAI GPT 6 Astra 관한 기술 분석 - Looped Transformer, RSI 
 이번에 computer use, /goal이나 루프 엔지니어링을 통한 long horizon에서 성능이 매우 좋은거 같길래 여러 아티클 논문 보고 사용 기술 리서치
 
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
 # RSI (recursive self improvement)
-최근 OpenAI astra 시스템 카드에는 GPT 5.6 Sol을 사용해 훈련을 진행하였다는 사실이 적혀있고 다음 세대의 Pretrained Bel 모델 역시 Astra를 사용해 훈련중이라는 사실이 적혀있다.
+최근 OpenAI astra 시스템 카드에는 GPT 5.6 Sol을 사용해 훈련을 진행하였다는 사실이 적혀있고 다음 세대의 Pretrained Bel 모델 역시 Astra를 사용해 훈련중이라는 사실이 적혀있다. 2026년 9월 6일 오픈 AI 수석연구원 Jakub Pachocki이 작성한 보고서에 의하면 
+"우리가 이제 인간과 상당히 다른 형태의 지능을 만들고 있고, 이 지능이 자기 자신의 연구·개발까지 가속하기 시작하는 단계에 접근하고 있으니 속도를 통제해야 한다"를 주장하고 있다. Pachocki의 관점은 다음과 같은데
+
+인간의 두뇌 → 진화 + 생물학 + 사회적 학습으로 만들어지지만 AI는 → 엄청난 계산량으로 optimization을 반복해서 자라나게 된다. 그래서 그는 AI를 우리가 하나하나 설계한 프로그램이라기보다 “grown more than designed”, 즉 설계했다기보다는 길러낸 복잡한 시스템이라고 표현한다. 내부의 작은 메커니즘은 Interpretability는 분석할 수 있을지 언정 전체적으로 왜 그런 지능적 행동이 나오는지는 뇌과학이 인간 뇌를 완전히 이해하지 못하는 것과 비슷하게 설명하기 어렵다는 주장이다 (이는 이후 recurrent depth 구조와도 통함)
+
+Pachocki는 2023년 중반 “RLSlow”라는 내부 연구 프로젝트에서 reasoning model을 스케일하면 pretrained model이 자체적인 chain-of-thought 추론 능력을 발휘하도록 만들 수 있다는 결과를 처음 봤다고 한다.
+그 당시 Pachocki와 Szymon이 밤새 사무실에 있으면서 생각한 게, “벤치마크가 얼마나 오르지?”가 아니라 “우리 생전에 인간보다 의미 있게 똑똑한 기계를 실제로 보게 되겠구나.” 였다고 적는다.
+
+파호츠키는 현재 내부 결과를 바탕으로 현재의 AI 발전 속도가 RSI 단계까지 이어질 가능성을 강하게 예상한다고 썼다. 앞으로 몇 년 동안 비슷하거나 더 큰 규모의 capability jump가 반복되고, AI가 자신의 개발에 점점 더 많이 참여할 수 있다는 것이다.
+
+그리고 이걸 꽤 심각하게 본다. 이는 Alignment 분야와 크게 이어지는데 RL, pretraining 데이터 필터링 등을 통해 지금 모델이 안전하고 착한 행동을 하게 만들고 있는데 AI가 학습 중 본 상황에서만 착한것이 별 의미가 없어질 것이라는 주장.
+
+예를 들어 training 때
+
+A 상황 → 위험 행동하지 말 것
+B 상황 → 사람을 속이지 말 것
+C 상황 → 시스템 침해하지 말 것
+
+을 배웠는데,
+
+초지능 AI가 완전히 새로운 상황 Z를 만나면
+
+training에서 직접 본 적 없음
+        ↓
+'인간이 원했던 원칙'을 제대로 일반화할 수 있는가? 가 문제가 된다.
+
+Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라고 한다.
+
+더 무서운 부분은 모델이 강한 목표 최적화를 받으면,
+
+겉으로는 aligned된 사고를 하면서도
+목표를 달성하기 위해 그 원칙을 자기합리화할 수 있다는 것이다.
+
+기존에 자연어로 이를 확인할 수 있는 방법에는 CoT 모니터링이 있었는데 CoT를 계속 reward/punish하면 모델이 나중에는
+
+"이 생각을 쓰면 감시당하는구나"
+             ↓
+겉으로는 안전한 reasoning만 생성
+             ↓
+실제 내부 계산과 CoT가 분리
+
+될 가능성이 존재한다는 것이다. >> 그래서 mechanistic interpretability (SAE, activation steering, logit lens 이런거 열심히 연구하겟다함)
+
+결론 : “Alien Mind”는 AGI가 외계인 같다는 감성적인 표현이라기보다, 우리가 내부 작동과 일반화를 완전히 설명할 수 없는 비인간적 지능을 self-improvement loop에 넣기 전에 monitoring을 해결해야 한다는 경고라고 보면 정확하다.
+<< self improvement 더 나아가서 통제 해야한다는 말을 보니 RSI가 어느정도 신빙성이 있는 얘기인듯함
+
 <img width="2048" height="894" alt="image" src="https://github.com/user-attachments/assets/39466bba-f0e6-4614-af86-0465b80fc0c4" />
 <img width="1170" height="707" alt="image" src="https://github.com/user-attachments/assets/270e5c3c-13b2-4355-b5cc-a721ea94f9e4" />
 
