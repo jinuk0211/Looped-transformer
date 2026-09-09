@@ -47,9 +47,9 @@ Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라
 최근 트위터에서 모델 출시 속도가 가속화되고 있는 점, 제프딘과 같은 개발자가 Discovery loop와 같은 RSI를 기반으로하는 회사가 2026년에 들어서면서 폭발적으로 증가하고 있다는점, 나비에-스토크스 방정식과 같은 문제를 search, loop로 풀어내는점을 보아 프론티어 모델 내부에서는 AI 지능이 스스로를 발전시키고 있다는 의견이 지배적
 
 # Looped-transformer
-<img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
 참조문헌
+
 https://x.com/ClaudeDevs/status/2097369738968195513
 
 https://arxiv.org/abs/2607.07663
@@ -157,6 +157,7 @@ Huginn 연구진은 현실적인 절충안을 사용했다. 순전파, 즉 실�
 이것이 실제로 구현된다면 **문제에 맞춰 연산 깊이를 조절하는 방식**이 된다.
 
 더 오래 생각한다고 해서 반드시 더 많은 글을 써야 하는 것은 아니게 된다.
+<img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
 
 **5. 관련 연구와 초기 실용적 성과**
 
