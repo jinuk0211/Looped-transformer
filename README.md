@@ -1,4 +1,4 @@
-OPENAI GPT 6 ASTRA 리서치 
+OPENAI GPT 6 ASTRA 리서치 - RSI, Looped transformer
 ========
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
