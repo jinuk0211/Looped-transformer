@@ -1,4 +1,3 @@
-<img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9db0950c-8d43-44b9-94ff-3c499a31e37e" /># OpenAI GPT 6 Astra 관한 기술 분석 - Looped Transformer, RSI 
 이번에 computer use, /goal이나 루프 엔지니어링을 통한 long horizon에서 성능이 매우 좋은거 같길래 여러 아티클 논문 보고 사용 기술 리서치
 
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
@@ -53,9 +52,7 @@ Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라
 
 <img width="2048" height="894" alt="image" src="https://github.com/user-attachments/assets/39466bba-f0e6-4614-af86-0465b80fc0c4" />
 <img width="1170" height="707" alt="image" src="https://github.com/user-attachments/assets/270e5c3c-13b2-4355-b5cc-a721ea94f9e4" />
-
-<img width="680" height="680" alt="image" src="https://github.com/user-attachments/assets/d0060010-03c2-417e-8d63-7c1d34769f4a" />
-
+최근 트위터에서 모델 출시 속도가 가속화되고 있는 점, 제프딘과 같은 개발자가 Discovery loop와 같은 RSI를 기반으로하는 회사가 2026년에 들어서면서 폭발적으로 증가하고 있다는점, 나비에-스토크스 방정식과 같은 문제를 search, loop로 풀어내는점을 보아 프론티어 모델 내부에서는 AI 지능이 스스로를 발전시키고 있는 것으로 보임
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 <img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
