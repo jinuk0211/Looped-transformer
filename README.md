@@ -1,3 +1,5 @@
+https://x.com/ClaudeDevs/status/2097369738968195513
+https://arxiv.org/abs/2607.07663
 # Looped-transformer
 <img width="1936" height="1014" alt="image" src="https://github.com/user-attachments/assets/5438459e-9102-4536-acbc-86993963766b" />
 
