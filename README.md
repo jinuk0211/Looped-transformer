@@ -1,8 +1,12 @@
 # OpenAI GPT 6 Astra 관한 기술 분석 - Looped Transformer, RSI 
 이번에 computer use, /goal이나 루프 엔지니어링을 통한 long horizon에서 성능이 매우 좋은거 같길래 여러 아티클 논문 보고 사용 기술 리서치
+
 Looped transformer
+=========
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
+
 RSI 
+=====
 <img width="1853" height="846" alt="image" src="https://github.com/user-attachments/assets/437e746d-1c27-45f8-aab0-90d003c84c2c" />
 
 # RSI (recursive self improvement)
