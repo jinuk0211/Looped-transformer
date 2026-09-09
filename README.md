@@ -22,32 +22,26 @@ Pachocki는 2023년 중반 “RLSlow”라는 내부 연구 프로젝트에서 r
 
 A 상황 → 위험 행동하지 말 것
 B 상황 → 사람을 속이지 말 것
-C 상황 → 시스템 침해하지 말 것
-
-을 배웠는데,
+C 상황 → 시스템 침해하지 말 것을 배웠는데,
 
 초지능 AI가 완전히 새로운 상황 Z를 만나면
 
-training에서 직접 본 적 없음
-        ↓
+training에서 직접 본 적 없음 ->
+        
 '인간이 원했던 원칙'을 제대로 일반화할 수 있는가? 가 문제가 된다.
 
 Pachocki는 alignment의 본질적인 문제가 generalization, 즉 일반화라고 한다.
 
-더 무서운 부분은 모델이 강한 목표 최적화를 받으면,
-
-겉으로는 aligned된 사고를 하면서도
-목표를 달성하기 위해 그 원칙을 자기합리화할 수 있다는 것이다.
-
-기존에 자연어로 이를 확인할 수 있는 방법에는 CoT 모니터링이 있었는데 CoT를 계속 reward/punish하면 모델이 나중에는
+더 무서운 부분은 모델이 강한 목표 최적화를 받으면,겉으로는 aligned된 사고를 하면서도
+목표를 달성하기 위해 그 원칙을 자기합리화할 수 있다는 것이다. 기존에 자연어로 이를 확인할 수 있는 방법에는 CoT 모니터링이 있었는데 CoT를 계속 reward/punish하면 모델이 나중에는
 
 "이 생각을 쓰면 감시당하는구나"
-             ↓
+             ->
 겉으로는 안전한 reasoning만 생성
-             ↓
+             ->
 실제 내부 계산과 CoT가 분리
 
-될 가능성이 존재한다는 것이다. >> 그래서 mechanistic interpretability (SAE, activation steering, logit lens 이런거 열심히 연구하겟다함)
+될 가능성이 존재한다는 것이다. -> 그래서 mechanistic interpretability (SAE, activation steering, logit lens 이런거 열심히 연구하겟다함)
 
 결론 : “Alien Mind”는 AGI가 외계인 같다는 감성적인 표현이라기보다, 우리가 내부 작동과 일반화를 완전히 설명할 수 없는 비인간적 지능을 self-improvement loop에 넣기 전에 monitoring을 해결해야 한다는 경고라고 보면 정확하다.
 << self improvement 더 나아가서 통제 해야한다는 말을 보니 RSI가 어느정도 신빙성이 있는 얘기인듯함
