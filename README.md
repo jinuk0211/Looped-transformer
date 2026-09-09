@@ -64,7 +64,7 @@ SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers
 
 https://sebastianraschka.com/blog/2026/openai-astra-looped-transformers.html
 
-반복형 아키텍처는 무엇을 바꾸는가
+Looped transformer는 무엇을 바꾸는가
 ========================================
 《디 인포메이션》의 보도에 따르면, GPT 6 Astra는 **반복형 트랜스포머(looped transformer)** 구조를 사용한다.
 
