@@ -1,4 +1,4 @@
-OPENAI GPT 6 ASTRA 리서치 - RSI, Looped transformer
+OPENAI GPT 6 ASTRA 기술 리서치 - RSI, Looped transformer
 ========
 <img width="4096" height="4096" alt="image" src="https://github.com/user-attachments/assets/2d96a5c5-4f8e-43ba-84e4-85d95ab7d821" />
 
@@ -135,4 +135,3 @@ Huginn 연구진은 현실적인 절충안을 사용했다. 순전파, 즉 실�
 더 오래 생각한다고 해서 반드시 더 많은 글을 써야 하는 것은 아니게 된다.
 
 <img width="2400" height="4000" alt="image" src="https://github.com/user-attachments/assets/9e1a69ab-26ea-4c58-8bf6-6202a9a073ec" />
-
