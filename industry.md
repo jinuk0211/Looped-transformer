@@ -1,7 +1,7 @@
 개발자를 넘어 화이트칼라 직군에 대한 LLM 도입
 ## GDPval, Agents’ Last Exam, 그리고 Jev
 
-인공지능의 발전과정에는 벤치마크가 연결이 깊다 생각하는데 MNIST와 같은 클래식한 벤치마크부터 attention is all you need의 등장 이래 LLM에서의 GSM8K, MATH500, SWE-Bench, terminal-bench, MMLU, OSWorld 같이 2023~ 이래로 현재 가장 대표할 수 잇는 벤치마크는 수학, 코딩, 일반적인 추론능력, 컴퓨터 사용이라는 현대의 LLM이 가장 잘하는 분야들이다. 이런 벤치마크의 정복에는 도메인의 평가방식의 용이함이나 특수성이 있었겠지만 최근의 skillbench, harness benchmark, RSI bench 그리고 더 나아가 GDPval, agent's last exam 과 같이 이제는 벤치마크가 채점하려는 분야가 하네스, 연구, 실제 industry 레벨로 올라가는 단계에 실제로 속해있다. 사실 LLM이 가장 파워를 낼수 있는 분야는 개인적으로 화이트 칼라 직종이라 생각하고 이에 대한 벤치마크, 무엇을 해결하려는가에 대한 구체적인 사례, 그에 대한 모델 개발까지 리서 치 GDPval, Agent's last exam, Jev
+인공지능의 발전과정에는 벤치마크가 연결이 깊다 생각하는데 MNIST와 같은 클래식한 벤치마크부터 attention is all you need의 등장 이래 LLM에서의 GSM8K, MATH500, SWE-Bench, terminal-bench, MMLU, OSWorld 같이 2023~ 이래로 현재 가장 대표할 수 잇는 벤치마크는 수학, 코딩, 일반적인 추론능력, 컴퓨터 사용이라는 현대의 LLM이 가장 잘하는 분야들이다. 이런 벤치마크의 정복에는 도메인의 평가방식의 용이함이나 특수성이 있었겠지만 최근의 skillbench, harness benchmark, RSI bench 그리고 더 나아가 GDPval, agent's last exam 과 같이 이제는 벤치마크가 채점하려는 분야가 하네스, 연구, 실제 industry 레벨로 올라가는 단계에 실제로 속해있다. 화이트 칼라 업무 및 실제 industry에 어떻게 영향을 미치고 이에 대한 벤치마크, 무엇을 해결하려는가에 대한 구체적인 사례, 그에 대한 모델 개발까지 리서 치 GDPval, Agent's last exam, Jev에 대한 리서치
 
 ## 1. GDPval: 전문가가 실제로 제출하는 결과물을 만들 수 있는가
 
