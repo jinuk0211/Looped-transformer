@@ -82,48 +82,13 @@ GDPval과 ALE가 “무엇을 잘해야 하는가”를 묻는다면, Jev는 “
 TypeSafe는 2026년 9월 Jev를 ‘System One’ 모델로 소개했다. 핵심은 자유로운 문장을 생성하는 대신, 프로그램 상태와 미리 정의된 질문을 받아 소프트웨어가 사용할 수 있는 선택·점수·확률을 반환한다는 것이다. 발표에서는 새로운 모델 아키텍처, 병렬 샘플러, **Reinforcement Learning for Calibrated Decisions(RLCD)**라는 학습 방법을 설명한다. 목표는 단순히 자연스러운 답변이 아니라, 확률과 불확실성을 동반한 구조화된 판단이다. [^7]
 
 이 방향에서 확률 보정은 중요한 문제다. 예를 들어 어떤 조건이 맞을 확률을 80%라고 반복해서 예측한다면, 그런 예측들의 실제 빈도도 80%에 가까운지를 살펴야 한다. 그래야 확신이 부족한 경우 추가 자료를 요청하거나 사람에게 넘기는 정책을 설계할 수 있다. 이는 Jev의 보정 성능이 이미 모든 업무에서 입증되었다는 뜻이 아니라, 의사결정 모델을 평가할 때 확인해야 할 성질이다. >> https://x.com/gregpr07/status/2100411066966749359
-이런식의 하네스구조로 구성
-![Jev 기반 코딩 에이전트의 전체 구조]![alt text](jev_01_architecture.png)
 <img width="2065" height="1550" alt="jev_01_architecture" src="https://github.com/user-attachments/assets/b9141558-60c0-47ce-ab2e-d96d9677ce99" />
 
 ## 출처
-
-[^1]: OpenAI, 「실제 작업에서 OpenAI 모델의 성능 측정하기」, 2025-09-25. <https://openai.com/ko-KR/index/gdpval/>
-
-[^2]: Sun et al., Agents’ Last Exam, arXiv:2606.05405v2, 2026-06-11. Abstract, benchmark design, Appendix C.3.5. <https://arxiv.org/html/2606.05405v2>
-
-[^3]: Patwardhan et al., GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks, arXiv:2510.04374v1. Figure 1, §§2.5, 3.1, 3.4. <https://arxiv.org/html/2510.04374v1>
-
-[^4]: Agents’ Last Exam 논문 개요 그림. 원문 이미지: <https://arxiv.org/html/2606.05405v2/x1.png>
-
-[^5]: Agents’ Last Exam, Agent Showdown. 공식 과제 예시와 full-pass 정의. 모델 점수는 본 원고에 인용하지 않음. <https://agents-last-exam.org/blogs/agent-showdown>
-
-[^6]: Berkeley RDI, Agents’ Last Exam 소개. <https://rdi.berkeley.edu/blog/agents-last-exam/>
-
-[^7]: TypeSafe, Introducing System One Models & Jev, 2026-09-15. 제품·학습 방법 설명과 자체 평가. <https://typesafe.ai/blog/introducing-system-one-models-and-jev>
-
-[^8]: 첨부 자료, Jev Engineering for Coding Agents, 2026-09, pp. 1, 12. 독립적인 학습용 편집본이며 TypeSafe 공식 발행·승인 자료가 아님. 토큰 비중과 비용은 예시 또는 추정치.
-
-[^9]: 첨부 자료, Jev Engineering for Coding Agents, pp. 1–2, Figure 1 및 §I.A. 생성 모델과 Jev의 역할 구분.
-
-[^10]: 첨부 자료, Jev Engineering for Coding Agents, pp. 2–3, §I.A 및 Table I. 컨텍스트·캐시·라우팅·도구·권한 판단.
-
-[^11]: 첨부 자료, Jev Engineering for Coding Agents, p. 3, §I.B. KV 캐시에 관한 사고실험.
-
-[^12]: 첨부 자료, Jev Engineering for Coding Agents, pp. 6–7, §V 및 Figure 4. 캐시 재사용과 컨텍스트 재구성, query-aware visibility.
-
-[^13]: 첨부 자료, Jev Engineering for Coding Agents, pp. 3–4, §II.A 및 Figure 2. 비용식의 X·Y·Z와 가정 단가. 현재 가격 또는 실증 평균이 아님.
-
-[^14]: 첨부 자료, Jev Engineering for Coding Agents, p. 8, §VII 및 Figure 5. 기능 요약·스키마·문서의 단계적 공개.
-
-[^15]: 첨부 자료, Jev Engineering for Coding Agents, p. 9, §VIII 및 Figure 6. 조건부 지침.
-
-[^16]: 첨부 자료, Jev Engineering for Coding Agents, p. 6 §IV.A 및 pp. 9–10 §IX. 실행 권한과 데이터 민감도 기반 라우팅.
-
-[^17]: 첨부 자료, Jev Engineering for Coding Agents, pp. 10–11, §X 및 Figure 7. 읽기 전용 백그라운드 작업의 검색 공유.
-
-[^18]: TypeSafe, Invoice Processing. 공개된 평가용 워크플로이며 실제 기업 고객의 운영 성과를 입증하는 사례가 아님. <https://evals.typesafe.ai/invoice_processing>
-
-[^19]: TypeSafe, Workflow evals. 강력한 외부 모델들의 응답 평균을 참조로 삼는 자체 평가 방식. <https://evals.typesafe.ai/>
-
-[^20]: OpenAI, GDPval 공개 데이터셋. 업무별 요청 및 제출물. <https://huggingface.co/datasets/openai/gdpval>
+<https://openai.com/ko-KR/index/gdpval/>
+<https://arxiv.org/html/2606.05405v2>
+<https://arxiv.org/html/2510.04374v1>
+<https://arxiv.org/html/2606.05405v2/x1.png>
+<https://typesafe.ai/blog/introducing-system-one-models-and-jev>
+Jev Engineering for Coding Agents, 2026-09
+<https://huggingface.co/datasets/openai/gdpval>
