@@ -1,6 +1,7 @@
-# 지능 폭발 (auto-research, openai/math, 아인슈타인 실험, 최신 RSI 리서치)
+# 지능 폭발 (auto-research, openai/math, 아인슈타인 실험, 리서치에 관한 RSI)
+<img width="1300" height="1150" alt="image" src="https://github.com/user-attachments/assets/abdef4fc-e463-46c2-a357-49398dad1f47" />
 
-## 최신 RSI 리서치: 연구 자동화의 두 병목 — WMRL과 AIM
+## 최신 리서치 RSI : 연구 자동화의 두 병목 — WMRL과 AIM
 
 2026년 10월 7일 기준, 논문 원문과 저자들의 공식 자료를 바탕으로 정리했습니다. 아래 수치는 저자 보고 결과이며 독립 재현한 수치가 아닙니다.
 
