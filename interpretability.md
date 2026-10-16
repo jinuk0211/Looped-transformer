@@ -3,8 +3,7 @@
 
 ### Goodfire가 제안하는 신경망 해석의 새로운 관점
 
-Goodfire의 Nick Cammarata가 쓴 **[Neural Networks Are Already Clean](https://already-clean.goodfire.com/)**을 중심으로, 핵심 주장과 배경 개념, 검증할 쟁점을 정리한 한국어 읽기 노트입니다.
-
+Goodfire의 Nick Cammarata가 쓴 **[Neural Networks Are Already Clean](https://already-clean.goodfire.com/)**을 중심으로, 기존 안트로픽의 해석가능성에서의 중첩 superposition에 대해서 반대의견
 > **핵심 메시지**  
 > 신경망이 복잡해 보이는 이유 중 일부는 내부 구조 자체보다 관찰 도구와 해석 방식에 있을 수 있습니다. 원래 뉴런과 회로를 더 잘 관찰하면, 예상보다 많은 부분을 직접 이해할 수 있다는 것이 저자의 주장입니다.
 
