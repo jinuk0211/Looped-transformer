@@ -1,4 +1,5 @@
-# Superposition을 다시 묻다
+# 2026년 현재까지의 Interpretability 기술 발전으로 인해 AI 모델 속 해석가능해진 개념들에 대해
+
 
 ### Goodfire가 제안하는 신경망 해석의 새로운 관점
 
