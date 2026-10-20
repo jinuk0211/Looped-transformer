@@ -46,8 +46,6 @@ AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이
 
 *그림 2. 질문에 포함된 ‘댈러스’, ‘주’, ‘주도’의 정보가 중간 특징을 거쳐 답변에 기여하는 경로를 단순화한 도식입니다. 모델 전체의 계산을 모두 그린 것은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
 
-<img width="1100" height="471" alt="image" src="https://github.com/user-attachments/assets/7de5be3c-98f0-4c08-86e6-0b4be9df0cfe" />
-
 <a id="images"></a>
 
 ## 2. 그림으로 보는 고양이와 자동차 사례
@@ -125,6 +123,30 @@ Qwen3-32B의 초기 조사에서는 다음과 같이 추정했습니다.
 
 원문에는 **Qwen3.6**에서 마침표 출력을 억제하는 뉴런 등을 분석한 사례도 나옵니다. 위 비율은 Qwen3-32B에 관한 것이므로 두 모델의 결과를 구분해야 합니다. 조 단위 파라미터 모델에서도 일부 회로를 제시하지만, 전체 조사는 아직 하지 않았다고 밝힙니다.
 
+### 이름 인식: 문자 조각에서 ‘Miyazaki’까지
+
+Qwen3-32B에서는 초기 층의 문자 조각과 철자 패턴이 **‘Miyazaki’를 인식하는 뉴런**으로 모이고, 뒤쪽에서는 《센과 치히로의 행방불명》과 《바람계곡의 나우시카》 같은 연관 표현으로 이어집니다.
+
+![Qwen3-32B에서 문자 조각과 철자 패턴이 Miyazaki 뉴런과 작품 관련 뉴런으로 이어지는 회로](images/qwen3-32b-miyazaki-circuit.png)
+
+*그림 5. Goodfire 원문의 Qwen3-32B 이름 인식 회로를 캡처한 화면입니다. L0–L1의 문자 조각, L2–L3의 패턴, L4의 이름 인식, L6–L8의 연관 표현을 함께 보여줍니다. 연결 옆 숫자는 활성화 값이 아니라 연결 강도입니다. [출처: Goodfire — From spelling fragments to “Miyazaki”](https://already-clean.goodfire.com/#miyazaki-circuit)*
+
+### 추론: ‘라이온 킹’ 단서에서 ‘Scar’라는 답으로
+
+다음은 이름을 직접 알려주지 않고 ‘프라이드 랜드의 왕이 된 사자 새끼의 숙적’을 묻는 사례입니다. Qwen3-32B는 **라이온 킹과 관련된 정보와 적대 관계 단서**를 이용해 ‘Scar’를 답합니다.
+
+![Qwen3-32B가 라이온 킹과 숙적에 관한 단서를 이용해 Scar를 답하는 추론 회로](images/qwen3-32b-lion-king-circuit.png)
+
+*그림 6. 왼쪽은 질문과 답변, 오른쪽은 Qwen3-32B의 MLP 뉴런을 묶어 표시한 회로입니다. 상자의 작은 숫자는 해당 그룹의 뉴런 수입니다. 원문 도식의 두 번째 사례를 캡처했습니다. [출처: Goodfire — Who stole the book?](https://already-clean.goodfire.com/#preeclampsia-circuit)*
+
+### 기능 검증: 마침표에 반응하지만 다음 마침표는 억제한다
+
+Qwen3.6의 이 뉴런은 여러 문맥의 마침표에서 활성화되지만, 출력에서는 다음 마침표의 가능성을 낮춥니다. **무엇에 반응하는지와 무엇을 하게 만드는지를 함께 봐야 한다**는 사례입니다.
+
+![왼쪽은 기존 연구의 뉴런이고 오른쪽은 Qwen3.6의 마침표 억제 뉴런인 비교 화면](images/qwen3-6-period-neuron.png)
+
+*그림 7. 오른쪽이 Qwen3.6 분석입니다. 위는 활성화 사례, 아래는 출력을 억제하는 토큰입니다. 원문은 강하게 활성화되는 30개 테스트에서 이 뉴런을 제거하자 모두 다음 마침표의 가능성이 높아졌다고 보고합니다. 왼쪽은 비교 대상으로 제시된 Towards Monosemanticity 연구의 뉴런입니다. [출처: Goodfire — Don’t Say Dot](https://already-clean.goodfire.com/#period-neuron-figure)*
+
 ### 반응한 위치만 보면 역할을 잘못 짚을 수 있다
 
 어떤 뉴런이 쉼표에서 반응한다고 해서 쉼표 자체를 담당한다고 볼 수는 없습니다. 그 위치에서 앞 문장의 내용을 정리해 다음 계산으로 넘길 수도 있습니다. 문장 전체의 맥락과, 그 뉴런이 다음 계산에 미치는 영향을 함께 봐야 합니다.
@@ -176,7 +198,7 @@ Anthropic은 512개 뉴런으로 이루어진 층에서 4,000개 이상의 특�
 
 ![golden bridge 이미지와 한국어를 포함한 여러 언어의 golden bridge 표현에 반응하는 특징](https://www-cdn.anthropic.com/images/4zrzovbb/website/c896a301ad3d1ef4237cb05b68d78b467c444097-2200x1284.png)
 
-*그림 5. 주황색은 텍스트에서 golden bridge 특징이 활성화되는 위치를 표시합니다. 서로 다른 언어와 이미지에서 같은 대상에 반응하는 특징을 추출한 사례입니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
+*그림 8. 주황색은 텍스트에서 golden bridge 특징이 활성화되는 위치를 표시합니다. 서로 다른 언어와 이미지에서 같은 대상에 반응하는 특징을 추출한 사례입니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
 
 | 분석 방법 | 무엇을 살펴보는가? |
 | --- | --- |
@@ -210,7 +232,7 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 
 ![영어 중국어 프랑스어의 질문이 작음 반대 큼이라는 공통 특징을 거치는 회로](https://www-cdn.anthropic.com/images/4zrzovbb/website/e0e156ea6c912a385d66ed562187fced8c392a58-1650x750.png)
 
-*그림 6. 영어·중국어·프랑스어의 입력과 출력은 다르지만, 그 사이에서 일부 개념과 계산 경로를 공유합니다. 특정 질문에 대한 회로를 단순화한 도식이며, 모든 언어 처리 과정이 동일하다는 뜻은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
+*그림 9. 영어·중국어·프랑스어의 입력과 출력은 다르지만, 그 사이에서 일부 개념과 계산 경로를 공유합니다. 특정 질문에 대한 회로를 단순화한 도식이며, 모든 언어 처리 과정이 동일하다는 뜻은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
 
 ### 2026년 사례: 내부 개념을 바꾸면 답도 바뀔까?
 
@@ -218,7 +240,7 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 
 ![J-space의 거미를 개미로 바꾸자 답이 8에서 6으로 달라지고 시의 계획 단어를 바꾸자 결말이 달라지는 실험](https://www-cdn.anthropic.com/images/4zrzovbb/website/98aba4182963219d29291912a0c3d2c299f7f1b5-1760x760.png)
 
-*그림 7. 왼쪽은 ‘거미줄을 만드는 동물의 다리 수’를 묻는 상황에서 내부의 ‘거미’ 표현을 ‘개미’로 바꾸자 답이 8에서 6으로 바뀌는 실험입니다. 오른쪽은 시의 결말로 계획된 단어를 바꾸자 문장의 결말도 달라지는 사례입니다. 내부 표현이 답변에 인과적으로 기여하는지 시험한 결과입니다. [출처: Anthropic, A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)*
+*그림 10. 왼쪽은 ‘거미줄을 만드는 동물의 다리 수’를 묻는 상황에서 내부의 ‘거미’ 표현을 ‘개미’로 바꾸자 답이 8에서 6으로 바뀌는 실험입니다. 오른쪽은 시의 결말로 계획된 단어를 바꾸자 문장의 결말도 달라지는 사례입니다. 내부 표현이 답변에 인과적으로 기여하는지 시험한 결과입니다. [출처: Anthropic, A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)*
 
 ### 일부 계산을 이해하는 것과 모델 전체를 이해하는 것
 
@@ -248,4 +270,4 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 - **게이트를 사용하는 계산 구조:** [GLU Variants Improve Transformer](https://arxiv.org/abs/2002.05202)
 - **회로 추적의 방법과 한계:** [Circuit Tracing](https://transformer-circuits.pub/2025/attribution-graphs/methods.html)
 
-본문에는 Goodfire 원문의 이미지 4장(그림 3·4의 각 두 패널)과 Anthropic 원문의 이미지 5장(그림 1·2·5·6·7)을 사용했습니다. 각 그림 아래에 한국어 설명과 원문 링크를 표시했으며, 이미지는 원문의 전체 URL로 연결했습니다.
+번호를 붙인 본문 그림에는 Goodfire 원문의 이미지 4장(그림 3·4의 각 두 패널), Qwen 분석 화면 캡처 3장(그림 5·6·7), Anthropic 원문의 이미지 5장(그림 1·2·8·9·10)을 사용했습니다. 각 그림 아래에 한국어 설명과 원문 링크를 표시했습니다. Qwen 캡처는 이 README와 함께 제공되는 `images/` 폴더에 있으며, 나머지 본문 이미지는 원문의 전체 URL로 연결했습니다.
