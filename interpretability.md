@@ -1,7 +1,7 @@
 # Neural Networks Are Already Clean - 2026/10/16
 <img width="680" height="357" alt="image" src="https://github.com/user-attachments/assets/603f17d4-49a3-459b-aeb8-fcc7d536305a" />
 
-현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 가설이라 흥미롭게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 상당부분 해석가능할 것이다라는 의견을 제시합니다
+현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 의견이라 흥미롭게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 전부 해석가능할 것이다라는 의견을 제시합니다
 
 **뉴런의 역할, 중첩(Superposition), 그리고 Qwen 분석 사례**
 ==========
@@ -45,6 +45,8 @@ AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이
 ![댈러스에서 텍사스를 거쳐 오스틴이라는 답변으로 이어지는 추론 회로](https://www-cdn.anthropic.com/images/4zrzovbb/website/fd2e125879ab993949017e03e3465a12fda884bf-1650x857.png)
 
 *그림 2. 질문에 포함된 ‘댈러스’, ‘주’, ‘주도’의 정보가 중간 특징을 거쳐 답변에 기여하는 경로를 단순화한 도식입니다. 모델 전체의 계산을 모두 그린 것은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
+
+<img width="1100" height="471" alt="image" src="https://github.com/user-attachments/assets/7de5be3c-98f0-4c08-86e6-0b4be9df0cfe" />
 
 <a id="images"></a>
 
@@ -170,11 +172,11 @@ iy → diy → do it yourself
 
 Anthropic은 512개 뉴런으로 이루어진 층에서 4,000개 이상의 특징을 추출하고, DNA 서열이나 법률 언어와 관련된 특징을 보고했습니다. [Towards Monosemanticity](https://www.anthropic.com/research/towards-monosemanticity-decomposing-language-models-with-dictionary-learning)
 
-2024년에는 이 접근을 Claude 3 Sonnet으로 확장했습니다. 아래의 **금문교 특징**은 영어뿐 아니라 한국어 등 여러 언어의 관련 표현과 금문교 이미지에도 반응합니다. 여기서 말하는 특징은 SAE로 추출한 활성화 패턴이며, ‘금문교만 담당하는 뉴런 하나’를 뜻하지 않습니다.
+2024년에는 이 접근을 Claude 3 Sonnet으로 확장했습니다. 아래의 **Golden bridge feature**은 영어뿐 아니라 한국어 등 여러 언어의 관련 표현과 golden bridge 이미지에도 반응합니다. 여기서 말하는 특징은 SAE로 추출한 활성화 패턴이며, ‘golden bridge만 담당하는 뉴런 하나’를 뜻하지 않습니다.
 
-![금문교 이미지와 한국어를 포함한 여러 언어의 금문교 표현에 반응하는 특징](https://www-cdn.anthropic.com/images/4zrzovbb/website/c896a301ad3d1ef4237cb05b68d78b467c444097-2200x1284.png)
+![golden bridge 이미지와 한국어를 포함한 여러 언어의 golden bridge 표현에 반응하는 특징](https://www-cdn.anthropic.com/images/4zrzovbb/website/c896a301ad3d1ef4237cb05b68d78b467c444097-2200x1284.png)
 
-*그림 5. 주황색은 텍스트에서 금문교 특징이 활성화되는 위치를 표시합니다. 서로 다른 언어와 이미지에서 같은 대상에 반응하는 특징을 추출한 사례입니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
+*그림 5. 주황색은 텍스트에서 golden bridge 특징이 활성화되는 위치를 표시합니다. 서로 다른 언어와 이미지에서 같은 대상에 반응하는 특징을 추출한 사례입니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
 
 | 분석 방법 | 무엇을 살펴보는가? |
 | --- | --- |
@@ -219,7 +221,7 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 *그림 7. 왼쪽은 ‘거미줄을 만드는 동물의 다리 수’를 묻는 상황에서 내부의 ‘거미’ 표현을 ‘개미’로 바꾸자 답이 8에서 6으로 바뀌는 실험입니다. 오른쪽은 시의 결말로 계획된 단어를 바꾸자 문장의 결말도 달라지는 사례입니다. 내부 표현이 답변에 인과적으로 기여하는지 시험한 결과입니다. [출처: Anthropic, A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)*
 
 ### 일부 계산을 이해하는 것과 모델 전체를 이해하는 것
-============
+
 예를 들어 프로그램의 함수 역할을 많이 알아도 모든 입력에서의 동작이나 모든 버그를 아는 것은 아닙니다. 뉴런의 역할을 알아내는 일과 긴 대화, 여러 단계의 추론, 드문 실패까지 설명하는 일 사이에도 차이가 있습니다.
 
 좋은 설명인지는 다음처럼 확인할 수 있습니다.
