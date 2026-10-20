@@ -1,7 +1,7 @@
 # Neural Networks Are Already Clean - 2026/10/16
 <img width="680" height="357" alt="image" src="https://github.com/user-attachments/assets/603f17d4-49a3-459b-aeb8-fcc7d536305a" />
 
-현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 의견이라 흥미롭게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 전부 해석가능할 것이다라는 의견을 제시합니다
+현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 가설이라 흥미롭게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 상당부분 해석가능할 것이다라는 의견을 제시합니다
 
 **뉴런의 역할, 중첩(Superposition), 그리고 Qwen 분석 사례**
 ==========
@@ -219,7 +219,7 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 *그림 7. 왼쪽은 ‘거미줄을 만드는 동물의 다리 수’를 묻는 상황에서 내부의 ‘거미’ 표현을 ‘개미’로 바꾸자 답이 8에서 6으로 바뀌는 실험입니다. 오른쪽은 시의 결말로 계획된 단어를 바꾸자 문장의 결말도 달라지는 사례입니다. 내부 표현이 답변에 인과적으로 기여하는지 시험한 결과입니다. [출처: Anthropic, A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)*
 
 ### 일부 계산을 이해하는 것과 모델 전체를 이해하는 것
-
+============
 예를 들어 프로그램의 함수 역할을 많이 알아도 모든 입력에서의 동작이나 모든 버그를 아는 것은 아닙니다. 뉴런의 역할을 알아내는 일과 긴 대화, 여러 단계의 추론, 드문 실패까지 설명하는 일 사이에도 차이가 있습니다.
 
 좋은 설명인지는 다음처럼 확인할 수 있습니다.
