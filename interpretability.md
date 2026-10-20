@@ -1,5 +1,7 @@
-# 2026년 현재까지의 Interpretability 기술 발전으로 인해 AI 모델 속 해석가능해진 개념들에 대해
+# Neural Networks Are Already Clean - 2026/10/16
+<img width="680" height="357" alt="image" src="https://github.com/user-attachments/assets/603f17d4-49a3-459b-aeb8-fcc7d536305a" />
 
+현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 의견이라 재밌게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 전부 해석가능할 것이다라는 의견을 제시합니다
 
 **뉴런의 역할, 중첩(Superposition), 그리고 Qwen 분석 사례**
 
@@ -8,6 +10,12 @@ AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이
 저자는 우리가 복잡하게 뒤섞여 있다고 생각했던 뉴런 중 상당수가, 자세히 보면 설명 가능한 역할을 한다고 주장합니다. 이를 뒷받침하는 요인으로 **관찰 도구의 발전, 모델 구조와 학습 방식의 개선, 모델 크기의 증가**를 함께 제시합니다.
 
 원문은 저자의 연구 결과와 가설을 담은 에세이입니다. 이 글에서는 그 주장과 배경 개념을 구분해 소개합니다.
+
+이와 함께 Anthropic의 2024~2026년 연구 그림을 통해 **개념의 표현, 추론 회로, 내부 표현에 대한 개입**의 실제 사례를 살펴봅니다. Anthropic의 그림은 Claude를 분석한 결과이며, 아래의 Goodfire·Qwen 분석과는 구분합니다.
+
+![Anthropic이 추출한 내적 갈등 특징과 주변의 관련 특징들을 보여주는 지도](https://www-cdn.anthropic.com/images/4zrzovbb/website/fe4d42c004bf43efda0f5921adfedd2f8f42e417-2200x2140.png)
+
+*그림 1. ‘내적 갈등’ 주변에는 감정과 이성, 상충하는 이해관계, 딜레마 등에 관련된 특징들이 모여 있습니다. 각 점은 추출한 특징을 나타내며, 개별 뉴런의 위치나 연결을 그린 것은 아닙니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
 
 ## 목차
 
@@ -31,6 +39,12 @@ AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이
 
 원문에서 말하는 **clean**은 뉴런의 반응을 공통된 패턴이나 역할로 설명할 수 있다는 뜻에 가깝습니다. 모든 뉴런이 정확히 하나의 단어나 개념만 담당한다는 뜻은 아닙니다. [원문](https://already-clean.goodfire.com/)
 
+회로를 추적하면 여러 개념이 답변으로 이어지는 과정도 살펴볼 수 있습니다. Anthropic은 Claude 3.5 Haiku에 “댈러스가 속한 주의 주도는?”이라고 물었을 때, **댈러스 → 텍사스 → 오스틴**에 해당하는 중간 단계를 관찰했습니다.
+
+![댈러스에서 텍사스를 거쳐 오스틴이라는 답변으로 이어지는 추론 회로](https://www-cdn.anthropic.com/images/4zrzovbb/website/fd2e125879ab993949017e03e3465a12fda884bf-1650x857.png)
+
+*그림 2. 질문에 포함된 ‘댈러스’, ‘주’, ‘주도’의 정보가 중간 특징을 거쳐 답변에 기여하는 경로를 단순화한 도식입니다. 모델 전체의 계산을 모두 그린 것은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
+
 <a id="images"></a>
 
 ## 2. 그림으로 보는 고양이와 자동차 사례
@@ -45,7 +59,7 @@ InceptionV1이라는 이미지 모델에는 고양이 얼굴과 자동차 앞부
 | :---: | :---: |
 | ![고양이·자동차·여우 입력이 공유하는 뾰족한 형태를 보여주는 생성 이미지](https://already-clean.goodfire.com/assets/v-figure-10x/gen-pointed-old.webp) | ![같은 뉴런의 음수 방향을 보여주는 둥근 생성 이미지](https://already-clean.goodfire.com/assets/v-figure-10x/gen-round-old.webp) |
 
-*그림 1. 왼쪽은 `4e:55` 뉴런으로 들어오는 고양이·자동차·여우 입력의 공통점을 드러내도록 만든 이미지입니다. 오른쪽은 같은 뉴런의 값이 크게 음수가 되도록 만든 이미지입니다. 실제 사진이 아니라 뉴런의 반응을 살펴보기 위해 생성한 그림입니다. [출처: Goodfire](https://already-clean.goodfire.com/)*
+*그림 3. 왼쪽은 `4e:55` 뉴런으로 들어오는 고양이·자동차·여우 입력의 공통점을 드러내도록 만든 이미지입니다. 오른쪽은 같은 뉴런의 값이 크게 음수가 되도록 만든 이미지입니다. 실제 사진이 아니라 뉴런의 반응을 살펴보기 위해 생성한 그림입니다. [출처: Goodfire](https://already-clean.goodfire.com/)*
 
 고양이와 자동차를 **대상의 이름**으로 보면 서로 다릅니다. 하지만 **형태**로 보면 공통점이 있을 수 있습니다. 저자는 이처럼 우리가 뉴런을 분류하는 방식 때문에 역할을 놓쳤을 가능성을 제기합니다.
 
@@ -59,7 +73,7 @@ InceptionV1이라는 이미지 모델에는 고양이 얼굴과 자동차 앞부
 | :---: | :---: |
 | <img src="https://already-clean.goodfire.com/assets/superposition-circuit/dream02/4d417.png" alt="기본 방법으로 시각화했을 때 고양이처럼 보이는 4d:417 뉴런" width="200"> | <img src="https://already-clean.goodfire.com/assets/superposition-circuit/domain60_dream02/417-car.jpg" alt="자동차 관련 경로를 반영했을 때 자동차처럼 보이는 같은 뉴런" width="200"> |
 
-*그림 2. 뉴런은 같지만, 이미지를 만드는 조건이 달라지면 보이는 대상도 달라집니다. 두 그림 모두 실제 사진이 아닌 생성 이미지입니다. [출처: Goodfire](https://already-clean.goodfire.com/)*
+*그림 4. 뉴런은 같지만, 이미지를 만드는 조건이 달라지면 보이는 대상도 달라집니다. 두 그림 모두 실제 사진이 아닌 생성 이미지입니다. [출처: Goodfire](https://already-clean.goodfire.com/)*
 
 따라서 생성 이미지 하나만 보고 “이것은 고양이 뉴런이다”라고 단정하기는 어렵습니다. 실제 사진 중 무엇에 반응하는지, 어떤 뉴런과 연결되는지 함께 확인해야 합니다. 이미지 생성 과정에도 결과를 바꾸는 여러 설정이 있기 때문입니다. [특징 시각화 설명](https://distill.pub/2017/feature-visualization/)
 
@@ -155,6 +169,12 @@ iy → diy → do it yourself
 
 Anthropic은 512개 뉴런으로 이루어진 층에서 4,000개 이상의 특징을 추출하고, DNA 서열이나 법률 언어와 관련된 특징을 보고했습니다. [Towards Monosemanticity](https://www.anthropic.com/research/towards-monosemanticity-decomposing-language-models-with-dictionary-learning)
 
+2024년에는 이 접근을 Claude 3 Sonnet으로 확장했습니다. 아래의 **금문교 특징**은 영어뿐 아니라 한국어 등 여러 언어의 관련 표현과 금문교 이미지에도 반응합니다. 여기서 말하는 특징은 SAE로 추출한 활성화 패턴이며, ‘금문교만 담당하는 뉴런 하나’를 뜻하지 않습니다.
+
+![금문교 이미지와 한국어를 포함한 여러 언어의 금문교 표현에 반응하는 특징](https://www-cdn.anthropic.com/images/4zrzovbb/website/c896a301ad3d1ef4237cb05b68d78b467c444097-2200x1284.png)
+
+*그림 5. 주황색은 텍스트에서 금문교 특징이 활성화되는 위치를 표시합니다. 서로 다른 언어와 이미지에서 같은 대상에 반응하는 특징을 추출한 사례입니다. [출처: Anthropic, Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)*
+
 | 분석 방법 | 무엇을 살펴보는가? |
 | --- | --- |
 | **원래 뉴런을 직접 분석** | 실제 모델의 뉴런이 무엇에 반응하고, 어떤 계산으로 이어지는지 본다. |
@@ -181,6 +201,24 @@ Goodfire의 글은 원래 뉴런을 직접 분석하는 방법의 가능성을 �
 
 이 글은 **생각보다 많은 뉴런에 설명할 만한 역할이 있고, 원래 모델을 직접 조사하는 방법이 유용하다**는 주장을 펼칩니다. 동시에 일부 사례를 설명했다는 것과 모델 전체를 이해했다는 것은 구분해야 합니다.
 
+### 언어가 달라도 공유되는 개념
+
+Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’를 여러 언어로 물었을 때, **작음·반대·큼**에 해당하는 특징을 공유하는 경로가 관찰됐습니다.
+
+![영어 중국어 프랑스어의 질문이 작음 반대 큼이라는 공통 특징을 거치는 회로](https://www-cdn.anthropic.com/images/4zrzovbb/website/e0e156ea6c912a385d66ed562187fced8c392a58-1650x750.png)
+
+*그림 6. 영어·중국어·프랑스어의 입력과 출력은 다르지만, 그 사이에서 일부 개념과 계산 경로를 공유합니다. 특정 질문에 대한 회로를 단순화한 도식이며, 모든 언어 처리 과정이 동일하다는 뜻은 아닙니다. [출처: Anthropic, Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)*
+
+### 2026년 사례: 내부 개념을 바꾸면 답도 바뀔까?
+
+2026년 7월 Anthropic은 **J-space**라는 내부 표현 공간을 분석한 연구를 공개했습니다. 아래 실험에서는 질문과 답변에 직접 등장하지 않는 중간 개념을 찾아 바꾸고, 결과가 어떻게 달라지는지 확인했습니다.
+
+![J-space의 거미를 개미로 바꾸자 답이 8에서 6으로 달라지고 시의 계획 단어를 바꾸자 결말이 달라지는 실험](https://www-cdn.anthropic.com/images/4zrzovbb/website/98aba4182963219d29291912a0c3d2c299f7f1b5-1760x760.png)
+
+*그림 7. 왼쪽은 ‘거미줄을 만드는 동물의 다리 수’를 묻는 상황에서 내부의 ‘거미’ 표현을 ‘개미’로 바꾸자 답이 8에서 6으로 바뀌는 실험입니다. 오른쪽은 시의 결말로 계획된 단어를 바꾸자 문장의 결말도 달라지는 사례입니다. 내부 표현이 답변에 인과적으로 기여하는지 시험한 결과입니다. [출처: Anthropic, A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)*
+
+### 일부 계산을 이해하는 것과 모델 전체를 이해하는 것
+
 예를 들어 프로그램의 함수 역할을 많이 알아도 모든 입력에서의 동작이나 모든 버그를 아는 것은 아닙니다. 뉴런의 역할을 알아내는 일과 긴 대화, 여러 단계의 추론, 드문 실패까지 설명하는 일 사이에도 차이가 있습니다.
 
 좋은 설명인지는 다음처럼 확인할 수 있습니다.
@@ -200,8 +238,11 @@ Goodfire의 글은 원래 뉴런을 직접 분석하는 방법의 가능성을 �
 - **중첩의 배경:** [Toy Models of Superposition](https://arxiv.org/abs/2209.10652)
 - **분산 표현과 중첩의 차이:** [Distributed Representations: Composition & Superposition](https://transformer-circuits.pub/2023/superposition-composition/index.html)
 - **SAE 연구:** [Towards Monosemanticity](https://www.anthropic.com/research/towards-monosemanticity-decomposing-language-models-with-dictionary-learning)
+- **Claude의 개념 지도와 금문교 특징:** Anthropic — [Mapping the mind of a large language model (2024)](https://www.anthropic.com/research/mapping-mind-language-model)
+- **다국어 개념 공유와 추론 회로:** Anthropic — [Tracing the thoughts of a large language model (2025)](https://www.anthropic.com/research/tracing-thoughts-language-model)
+- **J-space와 내부 표현 개입:** Anthropic — [A global workspace in language models (2026)](https://www.anthropic.com/research/global-workspace)
 - **뉴런을 그림으로 살펴보는 방법:** [Feature Visualization](https://distill.pub/2017/feature-visualization/)
 - **게이트를 사용하는 계산 구조:** [GLU Variants Improve Transformer](https://arxiv.org/abs/2002.05202)
 - **회로 추적의 방법과 한계:** [Circuit Tracing](https://transformer-circuits.pub/2025/attribution-graphs/methods.html)
 
-본문 그림 4장의 출처는 Goodfire 원문입니다. 원문에 있는 이미지의 전체 URL을 사용했습니다.
+본문에는 Goodfire 원문의 이미지 4장(그림 3·4의 각 두 패널)과 Anthropic 원문의 이미지 5장(그림 1·2·5·6·7)을 사용했습니다. 각 그림 아래에 한국어 설명과 원문 링크를 표시했으며, 이미지는 원문의 전체 URL로 연결했습니다.
