@@ -4,6 +4,7 @@
 현대의 AI 모델 interpretability에 대한 재밌는 의견이 나와서 공유합니다. 최근 alignment 이슈적으로 Interpretability가 점점 더 중요해지고 있는데 기존 anthropic의 superposition과 상반되는 의견이라 재밌게 읽었습니다. 개인적으로 LLM이 black-box라는 말에 전혀 동의하지 않는 사람중에 한명으로 SAE, transcoder, jacobian lens, activation patching, attribution graph 여러 Interpretability 방식들이 계속 발전하고 있고 이를 통해 LLM과 멀티모달 모델은 전부 해석가능할 것이다라는 의견을 제시합니다
 
 **뉴런의 역할, 중첩(Superposition), 그리고 Qwen 분석 사례**
+==========
 
 AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이 글은 Goodfire의 Nick Cammarata가 쓴 **[Neural Networks Are Already Clean](https://already-clean.goodfire.com/)**을 바탕으로, 뉴런의 역할을 어디까지 이해할 수 있는지 정리합니다.
 
