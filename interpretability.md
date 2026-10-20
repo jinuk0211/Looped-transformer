@@ -271,4 +271,3 @@ Anthropic의 2025년 연구에서는 Claude 3.5 Haiku에 ‘작다의 반대’�
 - **게이트를 사용하는 계산 구조:** [GLU Variants Improve Transformer](https://arxiv.org/abs/2002.05202)
 - **회로 추적의 방법과 한계:** [Circuit Tracing](https://transformer-circuits.pub/2025/attribution-graphs/methods.html)
 
-번호를 붙인 본문 그림에는 Goodfire 원문의 이미지 4장(그림 3·4의 각 두 패널), Qwen 분석 화면 캡처 3장(그림 5·6·7), Anthropic 원문의 이미지 5장(그림 1·2·8·9·10)을 사용했습니다. 각 그림 아래에 한국어 설명과 원문 링크를 표시했습니다. Qwen 캡처는 GitHub 첨부 이미지 주소로, 나머지 본문 이미지는 원문의 전체 URL로 연결했습니다. 별도의 이미지 폴더 없이 이 README.md의 내용을 복사해 GitHub에서 사용할 수 있습니다.
