@@ -12,7 +12,7 @@ AI 모델은 답을 만드는 동안 내부에서 무엇을 계산할까요? 이
 
 원문은 저자의 연구 결과와 가설을 담은 에세이입니다. 이 글에서는 그 주장과 배경 개념을 구분해 소개합니다.
 
-이와 함께 Anthropic의 2024~2026년 연구 그림을 통해 **개념의 표현, 추론 회로, 내부 표현에 대한 개입**의 실제 사례를 살펴봅니다. Anthropic의 그림은 Claude를 분석한 결과이며, 아래의 Goodfire·Qwen 분석과는 구분합니다.
+먼저 Anthropic의 2024~2026년 연구 그림을 통해 **개념의 표현, 추론 회로, 내부 표현에 대한 개입**의 실제 사례를 살펴보자면 밑의 Anthropic의 그림은 Claude를 분석한 결과이며, 아래의 Goodfire·Qwen 분석과는 구분합니다.
 
 ![Anthropic이 추출한 내적 갈등 특징과 주변의 관련 특징들을 보여주는 지도](https://www-cdn.anthropic.com/images/4zrzovbb/website/fe4d42c004bf43efda0f5921adfedd2f8f42e417-2200x2140.png)
 
