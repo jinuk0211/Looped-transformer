@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">읽기 · 추적 · 제어 · 평가</title>
+<desc id="desc">관측한 의미, 계산의 영향, 행동 개선은 서로 다른 검증 문제다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667777"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR",Arial,sans-serif} .title{font-weight:700} </style>
+<rect width="1200" height="540" rx="16" fill="#fffefa"/>
+<path d="M 40 42 H 1160" stroke="#16766b" stroke-width="4"/>
+<text x="40" y="78" fill="#16766b" font-size="17" font-weight="700" text-anchor="start">FIGURE 01 · CONCEPT DIAGRAM</text>
+<text x="40" y="126" fill="#173d39" font-size="32" font-weight="700" text-anchor="start">읽기 · 추적 · 제어 · 평가</text>
+<text x="40" y="164" fill="#667777" font-size="20" font-weight="400" text-anchor="start">관측한 의미, 계산의 영향, 행동 개선은 서로 다른 검증 문제다.</text>
+<rect x="40" y="220" width="250" height="150" rx="12" fill="#edf5f0" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="165.0" y="259" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">표현 읽기</text>
+<text x="165.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">무엇과 연결되는가?</text>
+<text x="165.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">LatentLens · J-lens</text>
+<rect x="330" y="220" width="250" height="150" rx="12" fill="#eaf2f9" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="455.0" y="259" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">계산 경로 추적</text>
+<text x="455.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">무엇이 출력에 기여하나?</text>
+<text x="455.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">Circuit Tracing</text>
+<rect x="620" y="220" width="250" height="150" rx="12" fill="#fff1df" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="745.0" y="259" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">내부 상태 제어</text>
+<text x="745.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">어디를 얼마나 바꾸나?</text>
+<text x="745.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">Activation steering</text>
+<rect x="910" y="220" width="250" height="150" rx="12" fill="#f2edf8" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="1035.0" y="259" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">행동 평가</text>
+<text x="1035.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">개선과 부작용은?</text>
+<text x="1035.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">정답 · 근거 · 비용</text>
+<path d="M 296 295 L 322 295" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 586 295 L 612 295" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 876 295 L 902 295" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 1035 376 V 438 H 165 V 378" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="7 6"/>
+<text x="600" y="476" fill="#16766b" font-size="22" font-weight="700" text-anchor="middle">평가에서 발견한 실패를 다시 읽고 추적한다</text>
+<text x="40" y="513" fill="#667777" font-size="17" font-weight="400" text-anchor="start">직접 작성한 개념도 · 실험 결과나 성능 순위를 나타내지 않음</text>
+</svg>
