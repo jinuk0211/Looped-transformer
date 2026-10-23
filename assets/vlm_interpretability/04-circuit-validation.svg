@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+<title id="title">회로 그래프에서 원래 모델의 개입 검증까지</title>
+<desc id="desc">단순화한 분석 흐름: 같은 입력에서 출력이 맞아도 개입 반응까지 같다는 뜻은 아니다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667777"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR",Arial,sans-serif} .title{font-weight:700} </style>
+<rect width="1200" height="700" rx="16" fill="#fffefa"/>
+<path d="M 40 42 H 1160" stroke="#16766b" stroke-width="4"/>
+<text x="40" y="78" fill="#16766b" font-size="17" font-weight="700" text-anchor="start">FIGURE 04 · CONCEPT DIAGRAM</text>
+<text x="40" y="126" fill="#173d39" font-size="32" font-weight="700" text-anchor="start">회로 그래프에서 원래 모델의 개입 검증까지</text>
+<text x="40" y="164" fill="#667777" font-size="20" font-weight="400" text-anchor="start">단순화한 분석 흐름: 같은 입력에서 출력이 맞아도 개입 반응까지 같다는 뜻은 아니다.</text>
+<rect x="40" y="210" width="300" height="145" rx="12" fill="#edf5f0" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="190.0" y="249" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">원래 MLP 계산</text>
+<text x="190.0" y="287" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">선택한 입력에서</text>
+<text x="190.0" y="317" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">실제 출력을 기록</text>
+<path d="M 350 282 L 425 282" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="435" y="210" width="325" height="145" rx="12" fill="#eaf2f9" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="597.5" y="249" fill="#316fa1" font-size="25" font-weight="700" text-anchor="middle">Transcoder 근사</text>
+<text x="597.5" y="287" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">설명된 특징의 기여</text>
+<text x="597.5" y="317" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">+ 재구성 error</text>
+<path d="M 770 282 L 845 282" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="855" y="210" width="305" height="145" rx="12" fill="#fff1df" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="1007.5" y="249" fill="#b86d23" font-size="25" font-weight="700" text-anchor="middle">Local replacement</text>
+<text x="1007.5" y="287" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">attention 등 일부 고정</text>
+<text x="1007.5" y="317" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">error로 기준점 보정</text>
+<path d="M 1007 365 V 410 H 590 V 440" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="435" y="450" width="325" height="140" rx="12" fill="#eaf2f9" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="597.5" y="489" fill="#316fa1" font-size="25" font-weight="700" text-anchor="middle">Attribution graph</text>
+<text x="597.5" y="527" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">경로와 가설을 추출</text>
+<text x="597.5" y="557" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">pruning·근사 한계 기록</text>
+<path d="M 425 520 L 350 520" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="40" y="450" width="300" height="140" rx="12" fill="#edf5f0" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="190.0" y="489" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">원래 모델에서 검증</text>
+<text x="190.0" y="527" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">ablation · patching</text>
+<text x="190.0" y="557" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">예측한 출력 변화 확인</text>
+<text x="860" y="493" fill="#667777" font-size="23" font-weight="400" text-anchor="start">해석 가능한 이름</text>
+<text x="860" y="530" fill="#b86d23" font-size="27" font-weight="700" text-anchor="start">≠ 전체 인과 설명</text>
+<text x="40" y="673" fill="#667777" font-size="17" font-weight="400" text-anchor="start">직접 작성한 개념도 · 실험 결과나 성능 순위를 나타내지 않음</text>
+</svg>
