@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+<title id="title">같은 벡터를 더해도 위치가 다르면 다른 개입</title>
+<desc id="desc">pre-norm 블록을 단순화한 예시: attention 출력, MLP 출력, 블록 출력을 구분한다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667777"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR",Arial,sans-serif} .title{font-weight:700} </style>
+<rect width="1200" height="640" rx="16" fill="#fffefa"/>
+<path d="M 40 42 H 1160" stroke="#16766b" stroke-width="4"/>
+<text x="40" y="78" fill="#16766b" font-size="17" font-weight="700" text-anchor="start">FIGURE 02 · CONCEPT DIAGRAM</text>
+<text x="40" y="126" fill="#173d39" font-size="32" font-weight="700" text-anchor="start">같은 벡터를 더해도 위치가 다르면 다른 개입</text>
+<text x="40" y="164" fill="#667777" font-size="20" font-weight="400" text-anchor="start">pre-norm 블록을 단순화한 예시: attention 출력, MLP 출력, 블록 출력을 구분한다.</text>
+<rect x="40" y="245" width="160" height="130" rx="12" fill="#f2f3f2" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="120.0" y="284" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">입력 h</text>
+<text x="120.0" y="322" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">residual</text>
+<rect x="255" y="245" width="210" height="130" rx="12" fill="#eaf2f9" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="360.0" y="284" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">Attention</text>
+<text x="360.0" y="322" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">a = Attn(Norm(h))</text>
+<rect x="520" y="245" width="160" height="130" rx="12" fill="#f2f3f2" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="600.0" y="284" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">중간 u</text>
+<text x="600.0" y="322" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">u = h + a</text>
+<rect x="735" y="245" width="210" height="130" rx="12" fill="#fff1df" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="840.0" y="284" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">MLP</text>
+<text x="840.0" y="322" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">m = MLP(Norm(u))</text>
+<rect x="1000" y="245" width="160" height="130" rx="12" fill="#edf5f0" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="1080.0" y="284" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">블록 출력</text>
+<text x="1080.0" y="322" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">h_next = u + m</text>
+<path d="M 205 310 L 250 310" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 470 310 L 515 310" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 685 310 L 730 310" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 950 310 L 995 310" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<text x="360" y="218" fill="#316fa1" font-size="24" font-weight="700" text-anchor="middle">① a를 수정</text>
+<path d="M 360 225 L 360 241" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<text x="840" y="218" fill="#b86d23" font-size="24" font-weight="700" text-anchor="middle">② m을 수정</text>
+<path d="M 840 225 L 840 241" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<text x="1080" y="218" fill="#16766b" font-size="23" font-weight="700" text-anchor="middle">③ h_next 수정</text>
+<path d="M 1080 225 L 1080 241" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="60" y="425" width="1080" height="135" rx="12" fill="#f6f7f3" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="90" y="466" fill="#173d39" font-size="25" font-weight="400" text-anchor="start">①·②는 residual에 합쳐지는 업데이트를 바꾼다.</text>
+<text x="90" y="507" fill="#173d39" font-size="25" font-weight="400" text-anchor="start">③은 블록 계산을 마친 전체 상태를 바꾼다.</text>
+<text x="90" y="541" fill="#667777" font-size="19" font-weight="400" text-anchor="start">실제 hook 위치와 텐서 shape를 코드에서 확인해야 한다.</text>
+<text x="40" y="613" fill="#667777" font-size="17" font-weight="400" text-anchor="start">직접 작성한 개념도 · 실험 결과나 성능 순위를 나타내지 않음</text>
+</svg>
