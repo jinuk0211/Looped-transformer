@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="730" viewBox="0 0 1200 730" role="img" aria-labelledby="title desc">
+<title id="title">방향 구성 · 보정 · 최종 평가를 분리하기</title>
+<desc id="desc">평가 자료로 레이어나 강도를 반복 선택하면 개선을 과대평가할 수 있다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667777"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR",Arial,sans-serif} .title{font-weight:700} </style>
+<rect width="1200" height="730" rx="16" fill="#fffefa"/>
+<path d="M 40 42 H 1160" stroke="#16766b" stroke-width="4"/>
+<text x="40" y="78" fill="#16766b" font-size="17" font-weight="700" text-anchor="start">FIGURE 10 · CONCEPT DIAGRAM</text>
+<text x="40" y="126" fill="#173d39" font-size="32" font-weight="700" text-anchor="start">방향 구성 · 보정 · 최종 평가를 분리하기</text>
+<text x="40" y="164" fill="#667777" font-size="20" font-weight="400" text-anchor="start">평가 자료로 레이어나 강도를 반복 선택하면 개선을 과대평가할 수 있다.</text>
+<rect x="40" y="220" width="300" height="150" rx="12" fill="#edf5f0" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="190.0" y="259" fill="#16766b" font-size="25" font-weight="700" text-anchor="middle">① 방향 구성 자료</text>
+<text x="190.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">방향 · 마스크 · probe</text>
+<text x="190.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">대조 사례와 attribution</text>
+<rect x="450" y="220" width="300" height="150" rx="12" fill="#fff1df" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="600.0" y="259" fill="#b86d23" font-size="25" font-weight="700" text-anchor="middle">② 개발·보정 자료</text>
+<text x="600.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">레이어 · 강도 · threshold</text>
+<text x="600.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">설정 선택 후 고정</text>
+<rect x="860" y="220" width="300" height="150" rx="12" fill="#eaf2f9" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="1010.0" y="259" fill="#316fa1" font-size="25" font-weight="700" text-anchor="middle">③ 최종 평가 자료</text>
+<text x="1010.0" y="297" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">정해진 설정으로 측정</text>
+<text x="1010.0" y="327" fill="#173d39" font-size="20" font-weight="400" text-anchor="middle">일반화와 부작용 확인</text>
+<path d="M 350 295 L 440 295" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<path d="M 760 295 L 850 295" stroke="#667777" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+<rect x="40" y="440" width="535" height="190" rx="12" fill="#f6f7f3" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="65" y="480" fill="#16766b" font-size="25" font-weight="700" text-anchor="start">주장에 대응하는 대조군</text>
+<text x="65" y="522" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">개입 없음 · 같은 norm의 무작위 방향</text>
+<text x="65" y="557" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">같은 빈도의 무작위 gate · 반대 방향</text>
+<text x="65" y="592" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">다른 이미지의 anchor로 교체</text>
+<rect x="625" y="440" width="535" height="190" rx="12" fill="#f6f7f3" stroke="#cadbd3" stroke-width="1.5"/>
+<text x="650" y="480" fill="#16766b" font-size="25" font-weight="700" text-anchor="start">같이 보고할 결과</text>
+<text x="650" y="522" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">정답률 · 환각 · 정보량 · 응답 길이</text>
+<text x="650" y="557" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">맞음→틀림과 틀림→맞음의 분해</text>
+<text x="650" y="592" fill="#173d39" font-size="21" font-weight="400" text-anchor="start">준비 비용 · 첫 토큰 지연 · 메모리</text>
+<text x="40" y="703" fill="#667777" font-size="17" font-weight="400" text-anchor="start">직접 작성한 개념도 · 실험 결과나 성능 순위를 나타내지 않음</text>
+</svg>
