@@ -1,6 +1,6 @@
 # LLM·VLM 해석과 제어: 표현 읽기, 회로 추적, Activation Steering
 
-**종합 연구노트 · 2026년 10월 23일 · 그림 10개와 함께 읽기**
+**종합 연구노트 · 2026년 10월 23일 · 원본 그림 44개와 함께 읽기**
 
 이 문서는 관련 논문과 공개 구현을 **표현 읽기 → 계산 경로 추적 → 내부 상태 개입 → 행동 평가**라는 공통 문제로 다시 엮은 긴 학습·연구 노트다. 논문별 소개에 그치지 않고, 수식이 가리키는 대상, 비슷한 방법들의 차이, 공개 코드와 설명 사이의 간극, 직접 실험할 때의 설계까지 연결했다.
 
@@ -8,7 +8,7 @@ LatentLens·J-lens·Circuit Tracing과 여러 activation steering 방법을 공�
 
 문서에서 **원문 요약**은 자료가 제시한 내용, **종합 해석**은 자료 사이의 연결, **실험 제안**은 이 문서에서 제안하는 검증 방법을 뜻한다. 예시 수치와 작은 벡터 계산은 이해를 위한 가상 사례다.
 
-그림 1–4와 6–10은 이 노트에서 직접 작성한 도식·수학 예제이며 실험 성능을 재현한 그림이 아니다. 그림 5는 출처와 이용 조건을 표시한 원 논문 이미지다.
+**그림 안내:** 논문과 공식 연구 페이지의 원본 그림 44개를 수록했다. 다중 패널을 포함한 이미지 파일은 48개이며, 같은 원문 figure의 패널은 하나의 그림으로 센다. 이미지의 선·색·수치는 수정하지 않았고, 한국어 제목과 읽는 포인트를 새로 붙였다. 각 캡션에서 원문의 figure 또는 도판 위치로 이동할 수 있다. 그림의 저작권과 이용 조건은 각 원출처에 따른다. 외부 원본 링크를 사용하므로 원출처 주소가 바뀌면 표시가 영향을 받을 수 있다.
 
 ## 목차
 
@@ -49,10 +49,6 @@ LatentLens·J-lens·Circuit Tracing과 여러 activation steering 방법을 공�
 
 ## 1. 이 자료들은 어떤 큰 질문으로 연결되는가
 
-![표현 읽기, 계산 경로 추적, 내부 상태 제어, 행동 평가의 네 단계와 피드백 관계](assets/vlm_interpretability/01-research-map.svg)
-
-*그림 1. 이 문서의 전체 지도. 각 단계는 다른 질문에 답하며, 평가에서 찾은 실패를 다시 분석한다. 직접 작성한 종합 개념도.*
-
 자료 전체를 관통하는 질문은 다음과 같다.
 
 > 모델 내부에는 어떤 의미가 표현되어 있고, 그중 무엇이 실제 답변을 만들며, 어느 부분을 얼마나 바꾸면 원하는 행동을 얻을 수 있는가?
@@ -84,10 +80,6 @@ LatentLens·J-lens·Circuit Tracing과 여러 activation steering 방법을 공�
 <a id="sec-03"></a>
 
 ## 3. 공통 기초: 우리가 바꾸는 ‘활성화’는 정확히 무엇인가
-
-![Attention 출력 a, MLP 출력 m, 블록 출력 h_next에서의 서로 다른 개입 위치](assets/vlm_interpretability/02-intervention-sites.svg)
-
-*그림 2. 같은 덧셈 수식이라도 어느 텐서에 적용했는지가 중요하다. pre-norm 블록의 단순화이며 특정 모델 구현을 그대로 그린 것은 아니다.*
 
 모델의 파라미터는 학습을 통해 저장된 가중치다. 활성화는 그 가중치에 특정 입력을 넣었을 때 생기는 중간 계산값이다. 같은 모델도 입력이 달라지면 활성화가 달라진다. Activation steering은 보통 가중치를 다시 학습시키기보다 실행 중간의 활성화에 개입한다.
 
@@ -142,6 +134,51 @@ H = 코퍼스의 문맥화된 텍스트 토큰 표현 모음
 
 **종합 해석.** 이 접근의 강점은 ‘bank’처럼 문맥에 따라 의미가 달라지는 단어를 고립된 어휘 항목으로 다루지 않는다는 데 있다. 하지만 검색 결과의 질은 참조 코퍼스에도 좌우된다. 코퍼스에 바닷가 장면 설명이 많고 실험실 장면 설명이 드물다면, 유사한 벡터를 설명하는 문장 후보 자체가 한쪽으로 치우칠 수 있다. 결과를 읽을 때는 한 문장만 고르기보다 여러 이웃이 공유하는 의미와 서로 충돌하는 의미를 함께 보는 편이 낫다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 1. 시각 토큰을 문맥 속 단어와 비교하는 이유**
+
+![LatentLens — 시각 토큰을 문맥 속 단어와 비교하는 이유](https://arxiv.org/html/2602.00462v5/figure1.svg)
+
+*원본: [LatentLens, Figure 1](https://arxiv.org/html/2602.00462v5#S1.F1).*
+
+낱말 하나의 입력 임베딩 대신 문장 안에서 계산한 표현을 검색한다. 이미지 패치의 의미와 검색된 단어의 문맥을 함께 읽는다.
+
+**그림 2. LatentLens의 전체 분석 절차**
+
+![LatentLens — LatentLens의 전체 분석 절차](https://arxiv.org/html/2602.00462v5/figure2_v2.svg)
+
+*원본: [LatentLens, Figure 2](https://arxiv.org/html/2602.00462v5#S3.F2).*
+
+텍스트 표현의 사전 계산, 시각 표현 추출, 최근접 이웃 검색, VLM 판정 단계가 연결된다. 마지막 판정 점수는 검색 결과의 해석 가능성에 대한 평가다.
+
+**그림 3. 세 가지 lens의 층별 해석 가능성**
+
+![LatentLens — 세 가지 lens의 층별 해석 가능성](https://arxiv.org/html/2602.00462v5/fig1_unified_interpretability.svg)
+
+*원본: [LatentLens, Figure 3](https://arxiv.org/html/2602.00462v5#S4.F3).*
+
+각 곡선은 논문이 판정한 해석 가능한 시각 토큰의 비율이다. 후반층의 logit lens 개선과 LatentLens의 전 층 경향을 구분해서 본다.
+
+**그림 4. 초기 시각 표현이 어느 텍스트 층과 정렬되는가**
+
+![LatentLens — 초기 시각 표현이 어느 텍스트 층과 정렬되는가](https://arxiv.org/html/2602.00462v5/layers_heatmap_combined_3x3.png)
+
+*원본: [LatentLens, Figure 4](https://arxiv.org/html/2602.00462v5#S4.F4).*
+
+행과 열은 서로 다른 층의 비교다. 입력 단계의 시각 표현도 중간 텍스트 층과 가까울 수 있다는 관찰을 보여 주며, 인과 경로 자체를 나타내지는 않는다.
+
+**그림 5. 이미 학습된 여섯 VLM에서의 비교**
+
+![LatentLens — 이미 학습된 여섯 VLM에서의 비교](https://arxiv.org/html/2602.00462v5/fig_offtheshelf.svg)
+
+*원본: [LatentLens, Figure 5](https://arxiv.org/html/2602.00462v5#S4.F5).*
+
+정규화된 층 깊이를 사용한 실제 모델 비교다. 서로 다른 구조에서 나타나는 공통 경향과 모델별 차이를 함께 확인한다.
+
+---
+
 <a id="sec-06"></a>
 
 ## 6. J-lens: 표현이 말로 이어지는 평균적인 방향 읽기
@@ -161,13 +198,30 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 
 이미지에 읽기 결과를 겹쳐 표시할 때는 원본 픽셀, resize된 이미지, patch grid, merge된 토큰의 좌표를 구분해야 한다. 잘못 정렬된 heatmap은 언어 해석 자체가 맞더라도 엉뚱한 물체를 가리킬 수 있다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 6. 평균 Jacobian으로 읽고 좌표를 바꾸는 J-lens**
+
+![J-lens · Verbalizable Representations Form a Global Workspace in Language Models — 평균 Jacobian으로 읽고 좌표를 바꾸는 J-lens](https://transformer-circuits.pub/2026/workspace/png/img_1b62b10ab235e6e7.png)
+
+*원본: [J-lens · Verbalizable Representations Form a Global Workspace in Language Models, Figure 4](https://transformer-circuits.pub/2026/workspace/#fig-jlens-schematic).*
+
+원문 Figure 4의 읽기와 개입 절차다. 평균 Jacobian을 통과한 어휘 읽기와 lens 좌표의 교환은 서로 다른 실험 단계다.
+
+**그림 7. 중간 개념 복원 능력의 비교**
+
+![J-lens · Verbalizable Representations Form a Global Workspace in Language Models — 중간 개념 복원 능력의 비교](https://transformer-circuits.pub/2026/workspace/png/img_c983850908bf60d9.png)
+
+*원본: [J-lens · Verbalizable Representations Form a Global Workspace in Language Models, Figure 52](https://transformer-circuits.pub/2026/workspace/#fig-method-compare-passk).*
+
+여섯 프롬프트 분포에서 측정한 정규화 pass@k AUC다. 개념을 잘 읽는다는 결과와 개입이 출력을 바꾼다는 결과를 분리해 평가한다.
+
+---
+
 <a id="sec-07"></a>
 
 ## 7. LatentLens와 J-lens를 함께 쓰면 무엇이 좋은가
-
-![LatentLens의 문맥 토큰 검색과 J-lens의 평균 Jacobian 및 어휘 head 읽기 비교](assets/vlm_interpretability/03-lens-comparison.svg)
-
-*그림 3. LatentLens는 문맥 속 이웃 표현을, J-lens는 downstream·어휘 출력과 연결되는 성분을 읽는다. 앞 절의 출처를 바탕으로 직접 작성한 비교 도식.*
 
 두 방법을 동일한 점수로 줄 세우기보다 서로 다른 질문을 던지는 도구로 보면 유용하다.
 
@@ -181,6 +235,19 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 **실험 제안.** 같은 이미지 토큰에 대해 두 결과를 나란히 기록한다. 둘 다 특정 객체를 가리킨다면 좋은 후속 조사 후보가 된다. 결과가 다르다면 실패라고 즉시 판단하지 않는다. 하나는 장면의 문맥적 유사성을, 다른 하나는 언어로 출력되기 쉬운 성분을 보여주었을 수 있다. 그 차이를 토큰 위치, 레이어, 질문 변경, 이미지 교체로 분해한다.
 
 예를 들어 같은 자전거 사진에 ‘무슨 물체가 있나’와 ‘안전장비가 보이나’를 각각 물었을 때 읽기가 바뀌는지 본다. 이미지 내용이 같아도 언어 문맥에 의해 관련 의미의 강조가 달라질 수 있다. 이때 중요한 결과는 ‘정답 단어를 맞혔다’ 하나가 아니라, **어느 표현이 이미지에 안정적으로 연결되고 어느 표현이 질문에 따라 달라지는가**다.
+
+
+### 원본 그림으로 확인하기
+
+**그림 8. 좌표 교환 뒤 실제 출력이 뒤집히는 비율**
+
+![J-lens · Verbalizable Representations Form a Global Workspace in Language Models — 좌표 교환 뒤 실제 출력이 뒤집히는 비율](https://transformer-circuits.pub/2026/workspace/png/img_151fa39f2f7df490.png)
+
+*원본: [J-lens · Verbalizable Representations Form a Global Workspace in Language Models, Figure 54](https://transformer-circuits.pub/2026/workspace/#fig-method-compare-swap).*
+
+세 모델 규모에서 lens 좌표를 바꾼 뒤의 top-1 답변 전환을 비교한다. 앞의 복원 지표보다 인과 개입에 가까운 증거로 읽을 수 있다.
+
+---
 
 <a id="sec-08"></a>
 
@@ -199,13 +266,48 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 
 ‘희소하다’라는 말에도 주의해야 한다. 적은 좌표만 수정하는 것, 적은 토큰에서만 개입하는 것, 적은 레이어만 선택하는 것, 학습된 sparse feature를 사용하는 것은 서로 다르다. REVIS의 sparse intervention을 SAE 기반 방법이라고 읽거나, AUSteer의 AU를 SAE feature와 동일시하면 설계 자체를 오해하게 된다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 9. SAE와 transcoder가 복원하는 대상의 차이**
+
+![Circuit Tracing in Vision–Language Models — SAE와 transcoder가 복원하는 대상의 차이](https://arxiv.org/html/2602.20330v1/figures/sae_vs_transcoder.png)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 3](https://arxiv.org/html/2602.20330v1#S3.F3).*
+
+SAE는 활성화 자체를, transcoder는 MLP의 입력–출력 동작을 근사한다. 두 도구를 같은 종류의 복원기로 취급하지 않도록 원문 그림을 나란히 본다.
+
+**그림 10. 낯선 이미지에 동원되는 기존 뉴런**
+
+![Goodfire · Neural Networks Are Already Clean — 낯선 이미지에 동원되는 기존 뉴런](https://already-clean.goodfire.com/assets/september-revision/rare-image-mini/rare-images-neurons@3x.webp)
+
+*원본: [Goodfire · Neural Networks Are Already Clean, rare-image-examples 원본 도판](https://already-clean.goodfire.com/#rare-image-examples).*
+
+위쪽 활성화 지도와 아래쪽 지지 뉴런의 자연 이미지 예시를 연결한다. 개별 사례가 낯설다는 사실만으로 새로운 전용 특징이 필요하다고 결론내릴 수는 없다.
+
+**그림 11. ConvNeXt의 층과 뉴런군을 잇는 전체 지도**
+
+![Goodfire · Neural Networks Are Already Clean — ConvNeXt의 층과 뉴런군을 잇는 전체 지도 · 패널 1](https://already-clean.goodfire.com/assets/convnext-map-still/whole.webp)
+
+![Goodfire · Neural Networks Are Already Clean — ConvNeXt의 층과 뉴런군을 잇는 전체 지도 · 패널 2](https://already-clean.goodfire.com/assets/convnext-map-still/zoom.webp)
+
+*원본: [Goodfire · Neural Networks Are Already Clean, convnext-map-still · 전체와 확대](https://already-clean.goodfire.com/#convnext-map-still).*
+
+원본 인터페이스의 전체 지도와 확대 화면이다. 군집의 이름은 탐색을 돕는 해석이며, 그 자체가 모든 뉴런의 단일 의미를 보증하지는 않는다.
+
+**그림 12. SwiGLU 출력의 부호를 분해해서 보기**
+
+![Goodfire · Neural Networks Are Already Clean — SwiGLU 출력의 부호를 분해해서 보기](https://already-clean.goodfire.com/assets/swiglu-audit.png)
+
+*원본: [Goodfire · Neural Networks Are Already Clean, swiglu-audit 원본 도판](https://already-clean.goodfire.com/#swiglu-audit).*
+
+게이트와 값 성분의 부호 조합을 활성화 구간별로 조사한 원본 분석이다. 최종 출력값만 보고 두 내부 성분의 의미를 단정하지 않도록 돕는다.
+
+---
+
 <a id="sec-09"></a>
 
 ## 9. Circuit Tracing: 의미 목록에서 계산 그래프로
-
-![Transcoder 근사와 error 보정, attribution graph, 원래 모델 개입 검증의 흐름](assets/vlm_interpretability/04-circuit-validation.svg)
-
-*그림 4. 그래프의 해석 가설은 원래 모델의 개입 결과로 다시 검증한다. [Circuit Tracing 방법론](https://transformer-circuits.pub/2025/attribution-graphs/methods.html)을 바탕으로 직접 작성한 도식.*
 
 **원문 요약.** Anthropic의 방법은 cross-layer transcoder로 MLP 계산을 근사한다. 한 레이어에서 읽은 특징이 그 레이어와 이후 레이어의 MLP 출력에 기여할 수 있다. 특정 입력을 설명하는 local replacement model에서는 attention pattern과 normalization의 일부 입력 의존성을 고정하고, 원래 모델과 근사 모델의 차이를 error term으로 보정한다. 이 위에서 특징·입력·출력 사이의 attribution graph를 만든다. 원래 입력에서 출력을 맞추는 것과, 모든 개입에서 원래 모델의 행동을 그대로 재현하는 것은 다르다. 그래프는 고정된 attention 가정, 근사 오차, pruning, 특징 분해의 한계를 가진다. [Circuit Tracing 방법론](https://transformer-circuits.pub/2025/attribution-graphs/methods.html)
 
@@ -218,19 +320,73 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 
 그래프가 복잡하다는 이유만으로 설명이 깊은 것도 아니고, 간단하다는 이유만으로 충실한 것도 아니다. 좋은 설명은 관찰한 출력을 설명하면서, 아직 보지 않은 개입 결과에 대한 예측을 제공해야 한다. 그래프에서 중요한 특징을 줄이면 특정 logit 차이가 감소할 것이라는 예측을 세우고 원래 모델에서 확인하는 식이다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 13. 원래 모델에서 해석 가능한 특징과 attribution graph로**
+
+![Anthropic · Circuit Tracing: Revealing Computational Graphs in Language Models — 원래 모델에서 해석 가능한 특징과 attribution graph로](https://transformer-circuits.pub/2025/attribution-graphs/png/methods.png)
+
+*원본: [Anthropic · Circuit Tracing: Revealing Computational Graphs in Language Models, 논문 도입부의 방법 개요](https://transformer-circuits.pub/2025/attribution-graphs/methods.html#methods-diagram-svg).*
+
+저자가 공식 페이지에서 제공하는 대표 개요 이미지다. 특징을 통한 대체 모델과 특징 사이의 영향 그래프를 구분하며, 그래프의 가설은 별도의 개입으로 검증해야 한다.
+
+---
+
 <a id="sec-10"></a>
 
 ## 10. VLM Circuit Tracing: 이미지가 답변으로 이어지는 길
-
-![Gemma3-4B의 해달 이미지 사례에서 시각 입력과 내부 특징, 출력의 연결을 나타낸 원 논문의 개요 그림](https://arxiv.org/html/2602.20330v1/figures/main_figure_seaotter.jpg)
-
-*그림 5. 실제 VLM circuit tracing의 예시. 해달 이미지와 질문에서 내부 계산 그래프를 분석하는 연구의 개요다. 전체 VLM에 공통인 완전한 회로도로 읽어서는 안 된다. 출처: Jingcheng Yang 외, [Circuit Tracing in Vision–Language Models, 원문 Figure 1](https://arxiv.org/html/2602.20330v1), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 원본 이미지 링크를 사용했으며 그림은 수정하지 않았다.*
 
 **원문 요약.** 위 VLM 논문은 Gemma3-4B-IT에서 layer-wise sparse transcoder를 학습해 멀티모달 계산을 추적한다. Anthropic의 cross-layer CLT와 같은 구조라고 보아서는 안 된다. 시각 입력, sparse feature, 출력 사이를 연결하고, 활성 사례와 SigLIP attention rollout 등을 활용해 시각 특징의 위치와 의미를 해석한다. 시각적 단서와 의미적 연상이 어떻게 결합하는지를 사례로 분석하고 일부 경로를 개입으로 검증한다. 관찰된 visual·semantic stream의 패턴은 해당 모델과 실험 사례에서 얻은 결과다. 하나의 보편적 VLM 구조로 단정하기에는 모델 범위, 수작업 해석, 위치 대응, 근사 계산 등의 제한이 있다. [Circuit Tracing in Vision–Language Models](https://arxiv.org/html/2602.20330v1)
 
 **종합 해석.** 이 자료는 lens와 steering 사이의 빈칸을 메우는 방향을 보여준다. 이미지 표현에서 ‘무엇처럼 보이는가’를 읽고, 그 표현이 실제 정답 후보까지 전달되는 경로를 찾고, 그중 일부를 바꾸어 출력이 예상대로 달라지는지 확인한다. 그러나 attention rollout의 위치 표시만으로 특정 픽셀이 정답의 원인임을 증명할 수는 없다.
 
 실험에서는 객체를 가린 이미지, 객체 위치만 바꾼 이미지, 질문만 바꾼 입력을 함께 사용하면 좋다. 시각적으로 연결된 특징이라면 이미지 변화에 반응해야 하고, 질문에 따라 선택되는 의미 경로라면 질문 변화에도 체계적으로 반응해야 한다. 단일 사례에서 발견한 흥미로운 경로를 반복 가능한 기제로 바꾸는 단계다.
+
+
+### 원본 그림으로 확인하기
+
+**그림 14. 해달 이미지에서 내부 회로까지**
+
+![Circuit Tracing in Vision–Language Models — 해달 이미지에서 내부 회로까지](https://arxiv.org/html/2602.20330v1/figures/main_figure_seaotter.jpg)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 1](https://arxiv.org/html/2602.20330v1#S1.F1).*
+
+이미지와 프롬프트에서 특징 및 출력으로 이어지는 연구 개요다. 아래의 구체적인 실험 그림들과 함께 읽되 모든 VLM에 공통인 완성된 회로도로 일반화하지 않는다.
+
+**그림 15. VLM용 transcoder 학습과 회로 추출**
+
+![Circuit Tracing in Vision–Language Models — VLM용 transcoder 학습과 회로 추출](https://arxiv.org/html/2602.20330v1/figures/method.jpg)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 2](https://arxiv.org/html/2602.20330v1#S3.F2).*
+
+멀티모달 자료로 학습한 transcoder, 특징 분석, attribution graph와 연구자의 해석이 연결된다. 자동 계산과 사람이 붙인 의미의 경계를 확인한다.
+
+**그림 16. 화성 특징을 지구 특징으로 바꾸는 개입**
+
+![Circuit Tracing in Vision–Language Models — 화성 특징을 지구 특징으로 바꾸는 개입](https://arxiv.org/html/2602.20330v1/figures/mars_intervention.jpg)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 6](https://arxiv.org/html/2602.20330v1#S4.F6).*
+
+같은 프롬프트에서 발견한 두 회로의 특징을 사용해 activation patching을 수행한다. 시각적 유사성만 보는 분석보다 개입에 따른 변화가 핵심이다.
+
+**그림 17. 여섯 손가락을 다섯으로 답하는 실패 회로**
+
+![Circuit Tracing in Vision–Language Models — 여섯 손가락을 다섯으로 답하는 실패 회로](https://arxiv.org/html/2602.20330v1/figures/circuit_hand.jpg)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 10](https://arxiv.org/html/2602.20330v1#S11.F10).*
+
+실제 이미지와 모델 답변의 불일치를 추적하는 사례다. 회로 그림의 각 노드가 어떤 시각 정보 또는 언어적 기대와 연결되는지 본다.
+
+**그림 18. 간단한 덧셈에서의 VLM 회로**
+
+![Circuit Tracing in Vision–Language Models — 간단한 덧셈에서의 VLM 회로](https://arxiv.org/html/2602.20330v1/figures/circuit_addition.jpg)
+
+*원본: [Circuit Tracing in Vision–Language Models, Figure 13](https://arxiv.org/html/2602.20330v1#S11.F13).*
+
+같은 도구를 산술 입력에 적용한 원본 사례다. 물체 인식 사례와 비교해 중간 특징과 최종 답변 연결이 어떻게 달라지는지 살펴본다.
+
+---
 
 <a id="sec-11"></a>
 
@@ -257,6 +413,45 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 
 **종합 해석.** 두 접근을 연결하는 생각은 ‘많은 계산을 다시 학습시키지 않고도 내부의 일부 방향을 바꾸면 행동이 움직일 수 있다’는 것이다. 다른 점은 어디를 선택하느냐다. 큰 상태 공간의 방향을 다루는 것과, 특정 head를 골라 개입하는 것은 자유도와 부작용의 구조가 다르다. 어느 쪽이 더 좋을지는 같은 데이터·같은 출력 길이·같은 개입 에너지에서 비교해야 한다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 19. CAA 벡터 만들기와 추론 중 적용**
+
+![Contrastive Activation Addition (CAA) — CAA 벡터 만들기와 추론 중 적용 · 패널 1](https://arxiv.org/html/2312.06681v4/generation_of_vector.svg)
+
+![Contrastive Activation Addition (CAA) — CAA 벡터 만들기와 추론 중 적용 · 패널 2](https://arxiv.org/html/2312.06681v4/inference.svg)
+
+*원본: [Contrastive Activation Addition (CAA), Figure 1](https://arxiv.org/html/2312.06681v4#S0.F1).*
+
+원문의 두 패널을 함께 제시한다. 대조 응답의 평균 차이로 방향을 구성하는 단계와 새 입력에서 그 방향을 더하는 단계를 분리한다.
+
+**그림 20. 행동별 CAA의 실제 효과**
+
+![Contrastive Activation Addition (CAA) — 행동별 CAA의 실제 효과](https://arxiv.org/html/2312.06681v4/ab_results.svg)
+
+*원본: [Contrastive Activation Addition (CAA), Figure 4](https://arxiv.org/html/2312.06681v4#S4.F4).*
+
+7B와 13B 모델의 객관식 행동 평가 결과다. 한 행동에서의 제어 효과를 다른 행동이나 자유 응답의 품질까지 확대 해석하지 않는다.
+
+**그림 21. 어떤 attention head가 진실성 정보를 담는가**
+
+![Inference-Time Intervention (ITI) — 어떤 attention head가 진실성 정보를 담는가](https://arxiv.org/html/2306.03341v6/figs/headacc.png)
+
+*원본: [Inference-Time Intervention (ITI), Figure 2](https://arxiv.org/html/2306.03341v6#S3.F2).*
+
+head별 선형 probe 성능과 선택한 head의 활성화 분포다. 정보가 구분된다는 관찰은 유용하지만 성공적인 제어 여부는 후속 개입 결과로 확인한다.
+
+**그림 22. ITI의 개입 강도와 head 수에 따른 변화**
+
+![Inference-Time Intervention (ITI) — ITI의 개입 강도와 head 수에 따른 변화](https://arxiv.org/html/2306.03341v6/figs/sweeping.png)
+
+*원본: [Inference-Time Intervention (ITI), Figure 4](https://arxiv.org/html/2306.03341v6#S4.F4).*
+
+원문의 강도 및 head 수 탐색 결과다. 한 지표만 최대화하지 말고 진실성과 정보성 등 여러 지표가 같이 어떻게 움직이는지 본다.
+
+---
+
 <a id="sec-13"></a>
 
 ## 13. SADI: 고정된 마스크, 상태에 따라 달라지는 변화량
@@ -266,6 +461,27 @@ J[l] ≈ E[ ∂h[final, target_position] / ∂h[l, source_position] ]
 **종합 해석.** 덧셈과 스케일링은 다음 가상 예에서 분명히 다르다. 활성화가 `h=[2,−3,0]`이고 두 번째 좌표만 선택했다고 하자. 그 좌표를 1.5배 하면 `[2,−4.5,0]`이 된다. 수치는 더 작아졌지만 절댓값은 커졌다. 그러므로 ‘선택한 특징을 증가시킨다’를 모든 좌표의 숫자가 양의 방향으로 이동한다는 뜻으로 읽으면 안 된다.
 
 또한 현재 활성화가 거의 0인 좌표는 곱셈으로 크게 살아나지 않는다. 덧셈은 꺼져 있던 방향을 새로 밀어 넣을 수 있고, 곱셈은 이미 존재하는 성분을 재가중한다. 이것은 어느 방식이 우월하다는 판단이 아니라, 개입이 가진 작동상의 차이다.
+
+
+### 원본 그림으로 확인하기
+
+**그림 23. 차이 추출, 이진 마스크, 적응형 개입**
+
+![SADI — 차이 추출, 이진 마스크, 적응형 개입](https://arxiv.org/html/2410.12299v2/framework.svg)
+
+*원본: [SADI, Figure 1](https://arxiv.org/html/2410.12299v2#S1.F1).*
+
+대조 자료에서 중요한 성분을 고른 뒤 현재 활성화에 마스크를 적용한다. 고정된 마스크와 입력에 따라 달라지는 실제 변화량을 구분한다.
+
+**그림 24. 개입 강도와 head 수의 상호작용**
+
+![SADI — 개입 강도와 head 수의 상호작용](https://arxiv.org/html/2410.12299v2/head-strength-4tasks.svg)
+
+*원본: [SADI, Figure 2](https://arxiv.org/html/2410.12299v2#S4.F2).*
+
+네 과제에 대한 원본 실험이다. 같은 설정이 모든 과제에 최적이라는 전제 없이 강도와 선택 범위가 성능을 어떻게 바꾸는지 본다.
+
+---
 
 <a id="sec-14"></a>
 
@@ -286,6 +502,35 @@ v* = − max(0, e_hat(h)−τ) / ||w||² × w      (w ≠ 0)
 
 이 계산은 선형 추정기 안에서는 명확하다. 실제 생성 오류는 선형 함수가 아니므로, 추정기가 보는 점수만 낮추고 실제 품질은 악화할 가능성은 별도 검증해야 한다. 이 때문에 방향 학습 데이터와 calibration 데이터, 최종 평가 데이터를 나누는 것이 중요하다. 수식을 구현할 때도 ‘오류를 낮추는 방향’이라는 제약과 실제 부호가 일치하는지 작은 수치 예제로 확인하는 편이 좋다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 25. 일정한 강도와 보정한 임계값 비교**
+
+![MERA — 일정한 강도와 보정한 임계값 비교](https://arxiv.org/html/2510.13290v1/assets/front_image.png)
+
+*원본: [MERA, Figure 1](https://arxiv.org/html/2510.13290v1#S1.F1).*
+
+고정 강도로 인한 부족하거나 과한 개입과 MERA의 보정 개념을 비교하는 원문 개요다. 이 도식 자체는 실험 성능 곡선이 아니다.
+
+**그림 26. 오류 추정기를 학습하고 임계값을 보정하는 절차**
+
+![MERA — 오류 추정기를 학습하고 임계값을 보정하는 절차](https://arxiv.org/html/2510.13290v1/assets/method.png)
+
+*원본: [MERA, Figure 3](https://arxiv.org/html/2510.13290v1#S4.F3).*
+
+활성화와 오류 수집, 오류 추정기 학습, steering 임계값 보정이 별도 단계다. 보정 자료와 최종 평가 자료의 역할을 나누어 읽는다.
+
+**그림 27. 모델 및 데이터셋별 MERA 결과**
+
+![MERA — 모델 및 데이터셋별 MERA 결과](https://arxiv.org/html/2510.13290v1/assets/main_rebuttal.png)
+
+*원본: [MERA, Figure 4](https://arxiv.org/html/2510.13290v1#S6.F4).*
+
+모델별·자료별 결과와 오류 분위수를 함께 보여 준다. 특정 평균 개선이 모든 입력의 오류 감소를 보장하는 것으로 읽어서는 안 된다.
+
+---
+
 <a id="sec-15"></a>
 
 ## 15. AUSteer: 큰 상태 전체보다 작은 activation unit
@@ -295,6 +540,35 @@ v* = − max(0, e_hat(h)−τ) / ||w||² × w      (w ≠ 0)
 **종합 해석.** ‘많이 다른 좌표’와 ‘차이의 방향이 일관된 좌표’는 다르다. 어떤 좌표는 일부 사례에서 아주 크게 변하고 나머지에서는 부호가 뒤집힐 수 있다. 다른 좌표는 변화량이 작아도 거의 항상 같은 방향으로 변할 수 있다. 어떤 선택 기준이 좋은지는 목표 행동과 자료의 잡음 구조에 따라 달라진다.
 
 스케일링을 `x'_i=(1+γ_i)x_i`라고 쓰면, 원래 부호를 유지하려면 `1+γ_i≥0`이라는 조건이 필요하다. ‘곱셈이므로 언제나 부호가 보존된다’는 설명은 계수 범위를 확인하지 않으면 성립하지 않는다. 이런 작은 조건이 실제 구현의 안정성을 좌우한다.
+
+
+### 원본 그림으로 확인하기
+
+**그림 28. 블록 수준 개입과 activation unit 수준 개입**
+
+![AUSteer — 블록 수준 개입과 activation unit 수준 개입](https://arxiv.org/html/2602.04428v1/Intro_fig.png)
+
+*원본: [AUSteer, Figure 1](https://arxiv.org/html/2602.04428v1#S1.F1).*
+
+어느 크기의 내부 성분을 제어하는지가 핵심 차이다. 작은 단위를 고른다는 설계와 실제 부작용 감소의 증거는 구분해서 본다.
+
+**그림 29. 중요한 AU 탐색과 적응형 steering**
+
+![AUSteer — 중요한 AU 탐색과 적응형 steering](https://arxiv.org/html/2602.04428v1/overview_v32.png)
+
+*원본: [AUSteer, Figure 5](https://arxiv.org/html/2602.04428v1#S4.F5).*
+
+activation momentum과 판별 점수로 AU를 고르는 절차 및 입력별 조절을 보여 준다. 어떤 통계로 선택했고 무엇을 조절하는지 확인한다.
+
+**그림 30. 강도와 선택 수에 따른 과제별 성능**
+
+![AUSteer — 강도와 선택 수에 따른 과제별 성능](https://arxiv.org/html/2602.04428v1/heper_search.png)
+
+*원본: [AUSteer, Figure 10](https://arxiv.org/html/2602.04428v1#A3.F10).*
+
+COPA, MAWPS, BPO의 원본 heatmap이다. 최적 영역이 과제마다 어떻게 달라지는지 보며 보정 설정의 의존성을 확인한다.
+
+---
 
 <a id="sec-16"></a>
 
@@ -323,6 +597,35 @@ v* = − max(0, e_hat(h)−τ) / ||w||² × w      (w ≠ 0)
 
 이미지를 가리는 대조도 조심해서 해석해야 한다. 원본과 마스킹 이미지의 차이는 객체의 의미뿐 아니라 밝기, 질감, 손상 패턴, attention 분포 차이까지 포함한다. 따라서 추출한 방향을 곧바로 ‘순수한 시각적 진실성’이라고 부르는 것은 과도하다. 이미지 perturbation의 종류를 바꾸어도 효과가 유지되는지 시험하면 이 우려를 줄일 수 있다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 31. 시각 개입 뒤 이미지 교란에 대한 특징 안정성**
+
+![Visual and Textual Intervention (VTI) — 시각 개입 뒤 이미지 교란에 대한 특징 안정성](https://arxiv.org/html/2410.15778v2/feature_variance.svg)
+
+*원본: [Visual and Textual Intervention (VTI), Figure 5](https://arxiv.org/html/2410.15778v2#S5.F5).*
+
+서로 다른 이미지 교란에서 시각 특징의 변동을 비교한 원본 결과다. 특징의 안정성과 최종 답변의 정확도는 별개의 측정값이므로 아래의 응답 평가와 함께 읽는다.
+
+**그림 32. 시각 encoder와 텍스트 decoder의 두 경로 개입**
+
+![Visual and Textual Intervention (VTI) — 시각 encoder와 텍스트 decoder의 두 경로 개입](https://arxiv.org/html/2410.15778v2/vti_overview.png)
+
+*원본: [Visual and Textual Intervention (VTI), Figure 3](https://arxiv.org/html/2410.15778v2#S4.F3).*
+
+예시 자료에서 방향을 미리 계산하고 새 입력에 적용하는 전체 절차다. 현재 입력에서 매번 방향을 만드는 RUDDER와 대조하기 좋은 원본 그림이다.
+
+**그림 33. MMHAL-Bench 세부 범주별 결과**
+
+![Visual and Textual Intervention (VTI) — MMHAL-Bench 세부 범주별 결과](https://arxiv.org/html/2410.15778v2/mmhal_radar.svg)
+
+*원본: [Visual and Textual Intervention (VTI), Figure 4](https://arxiv.org/html/2410.15778v2#S5.F4).*
+
+LLaVA-1.5 기반의 범주별 점수다. 전체 평균 외에 어떤 질문 유형에서 이득이 크고 작은지 살펴본다.
+
+---
+
 <a id="sec-18"></a>
 
 ## 18. REVIS: 고정 방향에서 prior 성분을 줄이고 필요할 때 개입
@@ -339,13 +642,38 @@ d_clean = d_raw − p × (pᵀd_raw)/(pᵀp)       (p ≠ 0)
 
 **종합 해석.** REVIS형 설계에서 확인할 것은 두 가지다. 정제한 방향이 정제 전보다 좋은가? 그리고 gate를 붙였을 때 같은 평균 개입량을 가진 상시 개입보다 좋은가? 둘을 동시에 바꾸고 최종 점수만 보고하면 성능 향상이 방향 덕분인지 gate 덕분인지 알기 어렵다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 34. 언어 prior 성분을 줄인 시각 방향**
+
+![REVIS — 언어 prior 성분을 줄인 시각 방향](https://arxiv.org/html/2602.11824v2/fig1_REVIS.png)
+
+*원본: [REVIS, Figure 1](https://arxiv.org/html/2602.11824v2#S1.F1).*
+
+직교 투영을 포함한 REVIS의 개요와 예시다. 투영으로 제거한 지정 성분과 의미적으로 완전히 순수한 시각 정보라는 주장을 동일시하지 않는다.
+
+**그림 35. 개입 강도가 커질 때의 성능 변화**
+
+![REVIS — 개입 강도가 커질 때의 성능 변화](https://arxiv.org/html/2602.11824v2/comparison_plot_revis.svg)
+
+*원본: [REVIS, Figure 3](https://arxiv.org/html/2602.11824v2#S3.F3).*
+
+원문에서 naive steering과 비교한 민감도 곡선이다. 큰 강도의 성능 하락은 방향 선택뿐 아니라 개입 크기도 평가해야 함을 보여 준다.
+
+**그림 36. 방향 구성, 층 선택, 생성 중 조절**
+
+![REVIS — 방향 구성, 층 선택, 생성 중 조절](https://arxiv.org/html/2602.11824v2/REVIS_design.png)
+
+*원본: [REVIS, Figure 4](https://arxiv.org/html/2602.11824v2#S3.F4).*
+
+보정 자료를 이용한 층 선택과 추론 시점의 동적 개입이 구분되어 있다. 고정되어 있는 부분과 매 입력·토큰에서 달라지는 부분을 짚어 본다.
+
+---
+
 <a id="sec-19"></a>
 
 ## 19. RUDDER: 현재 입력에서 anchor를 만들고 상태에 맞춰 주입
-
-![유사도가 증가할수록 커지는 신뢰형 gate와 감소하는 가상 위험형 gate를 비교한 수학적 그래프](assets/vlm_interpretability/06-gate-comparison.svg)
-
-*그림 6. RUDDER형 기본식의 단조성과 반대 방향 gate를 비교한 설명용 계산. 신뢰형은 clamp 전이며 점선은 비교용 가상 함수다. 논문에서 측정한 성능 곡선이 아니다.*
 
 **원문 요약.** RUDDER는 현재 이미지·질문을 처리할 때 얻는 residual-update 관련 신호를 모아 CARD 방향을 구성하고, 생성 상태와의 유사도로 개입 강도를 조절한다. 고정된 offline 방향을 모든 입력에 쓰는 계열과 달리 입력별 anchor를 사용한다. 논문과 구현을 읽을 때 ‘single-pass’라는 설계 설명, 특정 실행 경로의 실제 forward 횟수, gate의 수학적 방향을 각각 확인해야 한다. [RUDDER](https://arxiv.org/html/2511.10292v2)
 
@@ -363,6 +691,35 @@ h' = h + α*g*v
 
 **종합 해석.** 입력별 anchor는 적응성이 높지만 그 anchor가 신뢰할 만하다는 전제가 필요하다. 원래 입력 처리부터 잘못된 정보를 강조했다면 그 상태를 더 강하게 고정할 수도 있다. 이미지 교체, 질문 교체, 동일 이미지의 다른 crop에서 anchor가 어떻게 바뀌는지 기록하면 입력 특이성과 안정성을 함께 볼 수 있다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 37. RUDDER의 환각 수정 예시와 설계 비교**
+
+![RUDDER — RUDDER의 환각 수정 예시와 설계 비교](https://arxiv.org/html/2511.10292v2/motivation4_cropped.png)
+
+*원본: [RUDDER, Figure 1](https://arxiv.org/html/2511.10292v2#S1.F1).*
+
+원문이 제시한 응답 예시와 방법 특성 비교다. 오른쪽 비교표는 저자의 정리이며 구체적인 비용 판단에는 본문의 실행 조건이 필요하다.
+
+**그림 38. prefill에서 CARD를 만들고 decoding에서 조절**
+
+![RUDDER — prefill에서 CARD를 만들고 decoding에서 조절](https://arxiv.org/html/2511.10292v2/structure12_cropped.png)
+
+*원본: [RUDDER, Figure 2](https://arxiv.org/html/2511.10292v2#S3.F2).*
+
+현재 입력의 residual update를 모아 기준 방향을 얻고 Adaptive Beta Gate로 토큰별 개입을 조절한다. 방향 생성 시점과 강도 계산 시점을 나누어 본다.
+
+**그림 39. 어느 층에 주입하는지가 성능에 미치는 영향**
+
+![RUDDER — 어느 층에 주입하는지가 성능에 미치는 영향](https://arxiv.org/html/2511.10292v2/layer_fixedAK_chair.svg)
+
+*원본: [RUDDER, Figure 3](https://arxiv.org/html/2511.10292v2#S4.F3).*
+
+Idefics2에서 다른 설정을 고정한 층별 ablation이다. 이 모델에서의 유리한 층 번호를 다른 모델에 그대로 복사할 근거로 사용하지 않는다.
+
+---
+
 <a id="sec-20"></a>
 
 ## 20. GrAInS: 중요한 토큰을 찾은 뒤 방향 만들기
@@ -373,13 +730,30 @@ h' = h + α*g*v
 
 Ablation도 중립적 관측이 아니다. 토큰을 PAD로 바꾸는 것, UNK로 바꾸는 것, 아예 삭제하는 것, 자연스러운 대체 표현을 넣는 것은 서로 다른 입력을 만든다. 방향이 목표 의미를 포착했는지, 단지 부자연스러운 문장을 복구하는지 확인하려면 여러 ablation 기준을 비교해야 한다.
 
+
+### 원본 그림으로 확인하기
+
+**그림 40. attribution에서 마스킹, PCA, 주입까지**
+
+![GrAInS — attribution에서 마스킹, PCA, 주입까지](https://arxiv.org/html/2507.18043v2/vlms_steering_2.png)
+
+*원본: [GrAInS, Figure 2](https://arxiv.org/html/2507.18043v2#S3.F2).*
+
+부호가 있는 Integrated Gradients로 토큰을 고르고 대조 입력을 구성한 뒤 방향을 만든다. 마지막 주입뿐 아니라 방향 구성의 계산비용도 함께 읽는다.
+
+**그림 41. 양·음 attribution 토큰 제거의 차이**
+
+![GrAInS — 양·음 attribution 토큰 제거의 차이](https://arxiv.org/html/2507.18043v2/ablation_effect.svg)
+
+*원본: [GrAInS, Figure 3](https://arxiv.org/html/2507.18043v2#S3.F3).*
+
+TruthfulQA의 두 언어 모델에서 토큰 제거 뒤 선호도 차이를 측정한 실험이다. VLM 성능 자체를 그린 곡선이 아니라 attribution 선택을 뒷받침하는 분석이다.
+
+---
+
 <a id="sec-21"></a>
 
 ## 21. 아홉 steering 계열을 한 표에서 비교하기
-
-![VTI, REVIS, RUDDER, GrAInS의 방향 구성과 적용 단계를 비교한 네 행의 도식](assets/vlm_interpretability/07-vlm-steering-pipelines.svg)
-
-*그림 7. 방향을 언제 만드는지와 생성 중 무엇을 조절하는지를 나누어 읽는다. 각 방법의 본문 출처를 바탕으로 직접 작성한 비교 도식.*
 
 아래는 앞 절의 내용을 같은 기준으로 압축한 종합 비교다. 구현 변형을 모두 표현하는 표는 아니므로, 실제 재현에서는 해당 버전의 코드와 설정을 우선한다.
 
@@ -401,15 +775,44 @@ Ablation도 중립적 관측이 아니다. 토큰을 PAD로 바꾸는 것, UNK�
 
 ## 22. TraitBasis: 제어를 평가 환경을 만드는 데 사용하기
 
-![성향 벡터가 사용자 시뮬레이터에 적용되고 별도의 목표 에이전트가 평가되는 구조](assets/vlm_interpretability/08-traitbasis-evaluation.svg)
-
-*그림 8. TraitBasis의 steering 대상과 평가 대상을 구분한다. [TraitBasis](https://arxiv.org/html/2510.04491v3)를 바탕으로 직접 작성한 개념도.*
-
 **원문 요약.** TraitBasis는 impatience, confusion, skepticism, incoherence 같은 성향을 표현하는 대조 자료에서 방향을 만들고, 사용자 시뮬레이터의 행동을 조절한다. 여러 성향을 합성하고 강도를 조정하면서 별도의 목표 에이전트가 대화를 얼마나 잘 수행하는지 평가한다. τ-Trait 등의 환경에서 사용자의 성향 변화가 에이전트 성능을 크게 바꿀 수 있음을 보인다. 이 연구에서 steering 대상은 평가받는 에이전트가 아니라 사용자 역할을 하는 모델이라는 구분이 중요하다. 특정 실험의 성능 감소를 모든 실서비스에 같은 비율로 적용할 수는 없다. [Impatient Users Confuse AI Agents](https://arxiv.org/html/2510.04491v3)
 
 **종합 해석.** 이 응용은 ‘더 좋은 답변을 만들기 위해 steering한다’는 익숙한 사용법을 넓힌다. 테스트 상대의 행동을 바꾸어 시스템의 취약성을 찾을 수도 있다. 예를 들어 사용자 시뮬레이터가 질문에 답을 늦게 주거나, 조건을 중간에 바꾸거나, 같은 요구를 다르게 표현하도록 만들면 에이전트가 상태를 안정적으로 관리하는지 볼 수 있다.
 
 다만 시뮬레이터가 성향을 표현한다는 것과 실제 인간의 분포를 재현한다는 것은 다르다. impatience를 높였더니 단순히 답변 길이만 짧아졌다면, 복합적인 조급함을 충분히 구현했다고 보기 어렵다. 성향의 fidelity, 장시간 대화의 안정성, 다른 성향과 섞었을 때의 간섭, 과제 자체를 수행할 능력의 보존을 함께 측정해야 한다.
+
+
+### 원본 그림으로 확인하기
+
+**그림 42. 성향 벡터 추출과 사용자 시뮬레이션**
+
+![TraitBasis — 성향 벡터 추출과 사용자 시뮬레이션 · 패널 1](https://arxiv.org/html/2510.04491v3/TraitBasis_1.drawio.png)
+
+![TraitBasis — 성향 벡터 추출과 사용자 시뮬레이션 · 패널 2](https://arxiv.org/html/2510.04491v3/TraitBasis_2.drawio.png)
+
+*원본: [TraitBasis, Figure 1](https://arxiv.org/html/2510.04491v3#S1.F1).*
+
+원문 두 패널을 함께 제시한다. steering되는 사용자 시뮬레이터와 그 사용자에게 응답하는 평가 대상 에이전트를 구별한다.
+
+**그림 43. 성향의 현실감을 비교한 Elo와 승률**
+
+![TraitBasis — 성향의 현실감을 비교한 Elo와 승률 · 패널 1](https://arxiv.org/html/2510.04491v3/elo.svg)
+
+![TraitBasis — 성향의 현실감을 비교한 Elo와 승률 · 패널 2](https://arxiv.org/html/2510.04491v3/wr.svg)
+
+*원본: [TraitBasis, Figure 2](https://arxiv.org/html/2510.04491v3#S6.F2).*
+
+방법 간 쌍대 비교의 두 지표다. 현실감 평가에서의 우세와 실제 사용자의 분포를 완벽히 재현한다는 주장은 다른 수준의 주장이다.
+
+**그림 44. 두 성향을 함께 표현했는지 평가하기**
+
+![TraitBasis — 두 성향을 함께 표현했는지 평가하기](https://arxiv.org/html/2510.04491v3/match_accuracy.svg)
+
+*원본: [TraitBasis, Figure 5](https://arxiv.org/html/2510.04491v3#A1.F5).*
+
+부분 일치와 완전 일치의 차이를 함께 본다. 한 성향만 강하게 드러나는 결과를 성공적인 성향 조합으로 계산하지 않도록 하는 평가다.
+
+---
 
 <a id="sec-23"></a>
 
@@ -436,10 +839,6 @@ g : 적용 여부 또는 연속 gate
 <a id="sec-24"></a>
 
 ## 24. 수식을 실제로 이해하기 위한 여섯 가지 작은 계산
-
-![prior 방향 투영 제거와 벡터 norm 재조정의 2차원 수학 예시](assets/vlm_interpretability/09-vector-geometry.svg)
-
-*그림 9. 본문에 나오는 2차원 예제를 직접 계산했다. 직교화는 지정한 성분 제거를, norm 재조정은 길이의 보존을 나타낸다. 의미의 순수성이나 행동 보존까지 증명하지는 않는다.*
 
 ### 24.1 평균 차이와 PCA는 다른 질문을 한다
 
@@ -596,10 +995,6 @@ def add_direction(h, direction, strength, gate=None, keep_norm=False):
 <a id="sec-28"></a>
 
 ## 28. 제대로 비교하려면 무엇을 고정해야 하는가
-
-![방향 구성, 개발 및 보정, 최종 평가 자료의 분리와 대조군 및 보고 항목](assets/vlm_interpretability/10-evaluation-protocol.svg)
-
-*그림 10. 이 문서에서 제안하는 비교 실험 설계. 방향 구성과 설정 선택을 최종 평가에서 분리하고, 정확도·부작용·비용을 함께 측정한다.*
 
 방법마다 다른 모델·프롬프트·데이터셋으로 보고된 숫자를 모아 순위를 매기면 공정한 비교가 되지 않는다. 연구를 시작한다면 하나의 공통 실험 틀 안에서 비교하는 편이 좋다.
 
