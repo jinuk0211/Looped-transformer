@@ -1,4 +1,4 @@
-# LLM·VLM 해석과 제어: 표현 읽기, 회로 추적, Activation Steering
+LLM·VLM 해석과 제어: 표현 읽기, 회로 추적, Activation Steering
 ===========
 <img width="680" height="357" alt="image" src="https://github.com/user-attachments/assets/839478b1-a272-497f-b4a2-606e713063bd" />
 
