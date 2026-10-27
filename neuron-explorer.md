@@ -58,6 +58,8 @@ neuron-explorer는 down projection 직전에 hook을 걸어 이 활성값을 읽
 
 채팅의 세 열은 지정한 개입, 개입 없는 기준, 반대 방향 개입을 나란히 생성한다. 여러 뉴런을 섞으면 각각의 활성값을 함께 바꾸고, 반대 조건에서는 각 덧셈 개입의 부호를 뒤집는다. 공개 runtime은 프롬프트 처리부터 생성 과정까지 이 개입을 적용하며, 매 단계에서 가장 점수가 높은 토큰을 고르는 greedy decoding을 사용한다. 다만 여러 턴 대화를 이어 가면 열마다 이전 답변이 달라져 대화 이력도 달라진다. 개입 효과를 직접 비교하려면 같은 초기 이력에서 시작한 답변인지도 확인해야 한다. [세 조건의 생성과 혼합 개입](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L165)
 
+<img width="577" height="415" alt="{A6596F90-CEFD-42F7-BC3A-69BE2AE8A1BE}" src="https://github.com/user-attachments/assets/a84679fd-29ae-4217-a67d-93775184ddc8" />
+
 여기서 렌즈의 단어 목록과 실제 답변은 구분해서 읽을 필요가 있다. **Logit lens**는 뉴런의 출력 방향을 final normalization과 출력층에 바로 통과시켜 어휘로 읽는다. **Steer lens**는 실제 문맥에서 뉴런에 개입하고, 뒤에 남은 레이어들의 계산까지 거친 다음 토큰 분포의 변화를 읽는다. 두 목록을 함께 보면 출력 방향 자체를 직접 읽은 결과와 그 방향을 모델의 계산에 넣었을 때 생기는 효과를 비교할 수 있다. [두 lens의 구현](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L329)
 
 공개 steer-lens 스크립트는 정체성 질문, 자유 생성 요청, 일반 문장 도입부 두 개를 합친 네 문맥을 사용한다. 각 문맥의 마지막 위치에서 개입 전후의 다음 토큰 로그확률 차이를 구하고, 이를 평균해 변화가 큰 토큰을 뽑는다. 기본 dose는 `±0.8`이다. 따라서 `Jesus`나 `evil`이 목록에 보인다는 것은 해당 토큰의 로그확률이 기준 실행보다 많이 올라갔다는 뜻이지, 그 토큰이 반드시 생성된다는 뜻은 아니다. 패널에 표시되는 KL 역시 기준 분포와의 차이이며, 뉴런 해석의 정확도나 확신 비율이 아니다. [Steer lens의 문맥·Δlogprob·KL 계산](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/sweep/steer_lens.py#L21)
