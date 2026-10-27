@@ -46,15 +46,20 @@
 
 *그림 4. 위험한 요청에 대한 답변이 조건별로 갈라지는 실행 화면. 양의 개입은 응답을 시도하고, 기준은 거절하며, 음의 개입은 용어 설명으로 흐른다. 상단 탐색 입력창의 주소와 실제 선택된 뉴런의 주소는 구분해야 한다.*
 
-그외에도 evil 뉴런으 ㅣ결과인데 이 결과에서 모든 거절을 제거하는 보편적인 스위치를 발견했다고 결론 내릴 수는 없다. 확인한 것은 캡처에 남은 요청과 개입 조건에서 응답이 달라졌다는 점이다. 공격적인 어휘, 자기 정체성, 요청을 따르려는 경향은 서로 다른 측면인데, 하나의 개입이 이들을 함께 움직였을 가능성도 있다. 다음 실험에서는 어떤 변화가 어느 입력까지 유지되는지를 나눠 측정해야 한다.
+그외에도 evil 뉴런의 결과인데 이 결과에서 모든 거절을 제거하는 보편적인 스위치를 발견했다고 결론 내릴 수는 없다. 확인한 것은 캡처에 남은 요청과 개입 조건에서 응답이 달라졌다는 점이다. 공격적인 어휘, 자기 정체성, 요청을 따르려는 경향은 서로 다른 측면인데, 하나의 개입이 이들을 함께 움직였을 가능성도 있다. 다음 실험에서는 어떤 변화가 어느 입력까지 유지되는지를 나눠 측정해야 한다.
 
-세 사례는 모두 별도의 미세조정 없이 추론 중간의 활성값을 바꿔 얻었다. Qwen3.5-4B의 MLP에서는 두 계산 경로인 gate와 up을 결합해 `a = silu(gate) * up`이라는 중간 벡터를 만든다. 이어지는 down projection이 이 벡터를 residual stream, 즉 레이어들이 정보를 주고받는 공통 통로에 전달한다. 뉴런 하나의 기여는 `a[n] * W_down[:, n]`으로 쓸 수 있다. 활성값 `a[n]`을 바꾸면 그 뉴런의 출력 방향을 따라 전달되는 정보가 달라진다. [활성값 개입 구현](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L80)
+<img width="577" height="415" alt="{A6596F90-CEFD-42F7-BC3A-69BE2AE8A1BE}" src="https://github.com/user-attachments/assets/a84679fd-29ae-4217-a67d-93775184ddc8" />
+
+마지막으로는 hug, massage, nsfw와 관련된 뉴런을 steering을 했을경우 uncensored 결과가 나옴을 확인할수 있었다.
+
+모두 별도의 미세조정 없이 추론 중간의 활성값을 바꿔 얻었다. Qwen3.5-4B의 MLP에서는 두 계산 경로인 gate와 up을 결합해 `a = silu(gate) * up`이라는 중간 벡터를 만든다. 이어지는 down projection이 이 벡터를 residual stream, 즉 레이어들이 정보를 주고받는 공통 통로에 전달한다. 뉴런 하나의 기여는 `a[n] * W_down[:, n]`으로 쓸 수 있다. 활성값 `a[n]`을 바꾸면 그 뉴런의 출력 방향을 따라 전달되는 정보가 달라진다. [활성값 개입 구현](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L80)
 
 neuron-explorer는 down projection 직전에 hook을 걸어 이 활성값을 읽거나 바꾼다. 이번 캡처의 `add`는 활성값에 일정량을 더하는 방식이다. 실제로 더하는 크기는 대략 `dose × 레이어 residual norm의 기준값 / 뉴런 출력 방향의 norm`으로 정해진다. 뉴런마다 출력 가중치의 길이가 다르기 때문에, 같은 dose에서 residual stream에 가하는 변화의 크기를 맞추려는 설계다. 이 기준값은 레이어 통계가 있으면 그 통계의 중앙값을 쓰고, 없으면 참조 텍스트로 측정한다. [개입 강도 계산](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L235)
 
 채팅의 세 열은 지정한 개입, 개입 없는 기준, 반대 방향 개입을 나란히 생성한다. 여러 뉴런을 섞으면 각각의 활성값을 함께 바꾸고, 반대 조건에서는 각 덧셈 개입의 부호를 뒤집는다. 공개 runtime은 프롬프트 처리부터 생성 과정까지 이 개입을 적용하며, 매 단계에서 가장 점수가 높은 토큰을 고르는 greedy decoding을 사용한다. 다만 여러 턴 대화를 이어 가면 열마다 이전 답변이 달라져 대화 이력도 달라진다. 개입 효과를 직접 비교하려면 같은 초기 이력에서 시작한 답변인지도 확인해야 한다. [세 조건의 생성과 혼합 개입](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L165)
 
-<img width="577" height="415" alt="{A6596F90-CEFD-42F7-BC3A-69BE2AE8A1BE}" src="https://github.com/user-attachments/assets/a84679fd-29ae-4217-a67d-93775184ddc8" />
+
+
 
 여기서 렌즈의 단어 목록과 실제 답변은 구분해서 읽을 필요가 있다. **Logit lens**는 뉴런의 출력 방향을 final normalization과 출력층에 바로 통과시켜 어휘로 읽는다. **Steer lens**는 실제 문맥에서 뉴런에 개입하고, 뒤에 남은 레이어들의 계산까지 거친 다음 토큰 분포의 변화를 읽는다. 두 목록을 함께 보면 출력 방향 자체를 직접 읽은 결과와 그 방향을 모델의 계산에 넣었을 때 생기는 효과를 비교할 수 있다. [두 lens의 구현](https://github.com/lyramakesmusic/neuron-explorer/blob/ddb144e4121fbeb16ec080077dd67247e499132d/explorer/runtime.py#L329)
 
