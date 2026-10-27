@@ -7,6 +7,8 @@
 언어는 섞여 있는데, 일부 표현의 용법은 꽤 가까워 보인다. 한쪽에는 “비록 …이지만”, 다른 쪽에는 “그렇다”가 모여 있다. 모델 내부의 숫자 하나에서 이런 대비를 발견하면, 일단 이름부터 붙이고 싶어진다. ‘양보하는 뉴런’일까. 아니면 ‘동의하는 뉴런’의 반대쪽일까.
 <img width="1478" height="743" alt="{538F7DE8-EB32-44EB-9FCB-211D29660A97}" src="https://github.com/user-attachments/assets/fc0fd94f-942a-4049-84a6-0e76a7717a31" />
 
+<img width="1327" height="490" alt="{26050E7C-FE53-4A20-AA9B-F1E53910E412}" src="https://github.com/user-attachments/assets/88437cfe-38cc-4587-be68-584e190d3154" />
+
 ![neuron-explorer 실행 화면. L20 N8692를 선택한 상태에서 중앙에 레이어 지도와 연결 후보가, 양옆에 steer lens와 logit lens가 표시되어 있다.](<C:/Users/tgc04/Documents/ChatGPT/VLM interpretability/articles/assets/neuron-explorer-L20-N8692.png>)
 
 *사용자가 제공한 neuron-explorer 실행 화면. 선택된 뉴런은 `L20 N8692`다. 상단 입력창의 `L22 N2742`와 구분해서 읽어야 한다. 이 글은 화면과 공개 코드·저장 캐시를 확인한 해설이며, 새로운 모델 실험을 수행한 결과 보고는 아니다.*
