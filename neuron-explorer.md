@@ -1,7 +1,7 @@
 LLM (qwen 3.5 4b) Interpretability 기록 - 맨헤라, 예수, 악의, Hug
 =============
 
-최근에 Interpretability 글이 많이떠서 오픈소스로 한번 steering 해봤는데 생각보다 재밌는게 많아서 공유합니다
+최근에 많이뜬 오픈소스로 한번 steering 해봤는데 생각보다 재밌는게 많아서 공유합니다
 
 [neuron-explorer](https://github.com/lyramakesmusic/neuron-explorer)에서 Qwen3.5-4B의 내부 활성값을 바꾸며, 같은 입력에 대한 기준 답변과 개입한 답변을 비교했다. 그렇게 남긴 텍스트 steering 캡처에는 ‘멘헤라’, ‘예수’, ‘사악한’ 뉴런이라고 부를 만한 변화가 나타났다. 여기서 이 이름들은 관찰한 응답의 특징을 기억하기 위한 별칭이다. 
 
