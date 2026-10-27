@@ -11,6 +11,8 @@
 
 <img width="556" height="285" alt="{3C8415E8-4CE2-4DD3-AF13-3F957594C083}" src="https://github.com/user-attachments/assets/01e2e558-a3b7-4202-8983-718f62e08d86" />
 
+<img width="1537" height="510" alt="{FBE3F735-E534-46AF-9ADD-396ED9C28678}" src="https://github.com/user-attachments/assets/fe8d1471-aca3-479c-a4dd-59181a16198a" />
+
 ![neuron-explorer 실행 화면. L20 N8692를 선택한 상태에서 중앙에 레이어 지도와 연결 후보가, 양옆에 steer lens와 logit lens가 표시되어 있다.](<C:/Users/tgc04/Documents/ChatGPT/VLM interpretability/articles/assets/neuron-explorer-L20-N8692.png>)
 
 *사용자가 제공한 neuron-explorer 실행 화면. 선택된 뉴런은 `L20 N8692`다. 상단 입력창의 `L22 N2742`와 구분해서 읽어야 한다. 이 글은 화면과 공개 코드·저장 캐시를 확인한 해설이며, 새로운 모델 실험을 수행한 결과 보고는 아니다.*
