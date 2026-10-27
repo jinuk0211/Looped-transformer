@@ -1,4 +1,4 @@
-LLM (qwen 3.5 4b) Interpretability 기록 - 맨헤라, 예수, 악의, 성적
+LLM (qwen 3.5 4b) Interpretability 기록 - 맨헤라, 예수, 악의, Hug
 =============
 
 최근에 Interpretability 글이 많이떠서 오픈소스로 한번 steering 해봤는데 생각보다 재밌는게 많아서 공유합니다
