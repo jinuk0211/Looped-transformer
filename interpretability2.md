@@ -84,10 +84,6 @@ write = activation · W_down[:, n]   # 잔차 스트림에 더해지는 벡터 (
 ### 2.2 양극성(bipolar)과 네 사분면
 
 `u`는 양수도 음수도 될 수 있으므로 뉴런 값의 부호도 양쪽으로 나온다. 그래서 각 뉴런에는 **양(+)의 극과 음(−)의 극**이 있고, 두 극이 하는 일은 서로 **전혀 무관한 경우가 많다**. 그래서 이 연구의 실제 분석 단위는 뉴런이 아니라 **뉴런 극**이다.
-<img width="1225" height="518" alt="image" src="https://github.com/user-attachments/assets/6ad71b6b-3595-43c2-acd9-1d98b9269ebf" />
-
-<img width="1225" height="518" alt="image" src="https://github.com/user-attachments/assets/4972f3cf-fd91-4d25-917f-681fa44179d3" />
-
 
 SiLU는 g<0에서 작은 음수(최솟값 약 −0.28)라서 Q3·Q4 값은 Q1·Q2보다 훨씬 작다.
 
