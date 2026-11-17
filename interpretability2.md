@@ -1,12 +1,12 @@
-# 뉴런 그대로도 해석된다 — Goodfire 「Neurons as an Interpretable Basis」 쉽게 풀어 쓴 정리
+# Goodfire -「Neurons as an Interpretable Basis」 정리
+# Microsoft - Interpretable Weight-Space Programming Builds Transparent Transformers and Brain Encoding Models 정
 
 <img width="1608" height="822" alt="{BE330126-D971-481D-941E-B65F094C2D36}" src="https://github.com/user-attachments/assets/e5357561-5ac4-48ec-887c-48753d8e748c" />
 
 > **원문** [Neurons as an Interpretable Basis](https://www.goodfire.com/research/neurons-as-an-interpretable-basis) · Goodfire Research · 2026-11-10
 > **저자** Curt Tigges, Matthew Kowal, Thomas McGrath, Owen Lewis, Nick Cammarata
 > **분석 대상 모델** Qwen3.6-35B-A3B (MoE)
->
-
+최근 goodfire 회사를 openAI가 거액에 인수추진, 협력하는 기사 난거 보고 신기해서 최근 research 리뷰
 ---
 
 ## 목차
