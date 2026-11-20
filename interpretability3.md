@@ -26,7 +26,7 @@
 ---
 
 
-![Uploading image.png…]()
+<img width="2534" height="4614" alt="image" src="https://github.com/user-attachments/assets/faae3d2e-5e7b-4a4a-8f75-f6932d2f717d" />
 
 ## 1. 배경
 
