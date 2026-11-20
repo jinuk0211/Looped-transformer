@@ -25,6 +25,9 @@
 
 ---
 
+
+![Uploading image.png…]()
+
 ## 1. 배경
 
 SAE(sparse autoencoder), transcoder, attribution graph 같은 기존 해석 기법은 모델 활성화를 새로운 특징 단위로 분해하거나, 프롬프트 하나에 대한 회로를 그린다. 선행 연구에서는 한 번의 forward pass가 소수의 뉴런만으로 희소화될 수 있다는 것도 보였다. 하지만 **그런 뉴런 묶음이 여러 입력에서 반복해서 재사용되는지**는 분명하지 않았다.
