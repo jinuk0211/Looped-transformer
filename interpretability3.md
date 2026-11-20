@@ -1,5 +1,7 @@
 # Large-scale Neuron Community Discovery Reveals Neuron-Sparse Behaviors in Language Models
+![Figure 1. 방법 개요](https://arxiv.org/html/2611.23112v1/figures/neuron-communities-method.png)
 
+*Figure 1. 전체 파이프라인. (A) 프롬프트마다 뉴런 기여도를 계산하고, 함께 등장하는 뉴런으로 그래프를 만든 뒤 Leiden으로 군집화한다. (B) 찾은 커뮤니티를 held-out 프롬프트에서 필요성·충분성 테스트로 검증한다.*
 > **대규모 뉴런 커뮤니티 탐색으로 언어 모델의 "뉴런 희소(neuron-sparse)" 행동을 찾아내다**
 
 | 항목 | 내용 |
@@ -33,9 +35,7 @@ SAE(sparse autoencoder), transcoder, attribution graph 같은 기존 해석 기�
 
 ## 2. 방법
 
-![Figure 1. 방법 개요](https://arxiv.org/html/2611.23112v1/figures/neuron-communities-method.png)
-
-*Figure 1. 전체 파이프라인. (A) 프롬프트마다 뉴런 기여도를 계산하고, 함께 등장하는 뉴런으로 그래프를 만든 뒤 Leiden으로 군집화한다. (B) 찾은 커뮤니티를 held-out 프롬프트에서 필요성·충분성 테스트로 검증한다.*
+<img width="657" height="118" alt="image" src="https://github.com/user-attachments/assets/3cedc8de-e05a-406b-8c34-87b9d6b2370a" />
 
 ### Step 1. 뉴런 기여도 (attribution)
 - 마지막 프롬프트 위치에서 각 MLP 뉴런의 점수를 **|h · ∂log p(ŷ|x)/∂h|** 로 계산한다. 즉 활성값 × (예측 1순위 토큰의 로그확률에 대한 민감도)다.
