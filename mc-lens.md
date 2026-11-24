@@ -110,9 +110,9 @@ J^{m}_{\ell} = \frac{1}{N} \sum_{i=1}^{N} J^{m}_{\ell}(x_i)
 State $`h`$를 lens $`J_\ell`$로 옮긴 뒤, decoder의 최종 normalization과 unembedding $`W_U`$를 적용한다.
 
 ```math
-\operatorname{score}_{\ell}(w \mid h) = u_w^{\top} \operatorname{Norm}[J_\ell h],
+\mathrm{score}_{\ell}(w \mid h) = u_w^{\top} \mathrm{Norm}[J_\ell h],
 \qquad
-\operatorname{lens}_{\ell}(h) = \operatorname{softmax}\big(W_U \operatorname{Norm}[J_\ell h]\big)
+\mathrm{lens}_{\ell}(h) = \mathrm{softmax}\big(W_U \mathrm{Norm}[J_\ell h]\big)
 ```
 
 - **Accessibility 지표**: concept 이름 token의 **vocabulary 순위(rank)**. 순위가 높을수록(숫자가 작을수록) 더 접근 가능하다.
@@ -131,7 +131,7 @@ State $`h`$를 lens $`J_\ell`$로 옮긴 뒤, decoder의 최종 normalization과
 ```math
 \mu_{\ell} = \frac{1}{N_{\mathrm{ref}}} \sum_{r=1}^{N_{\mathrm{ref}}} h(x_r^{\mathrm{ref}}),
 \qquad
-\operatorname{score}_{\ell}(w \mid h, \mu_\ell) = u_w^{\top} \operatorname{Norm}\big[J_\ell (h - \mu_\ell)\big]
+\mathrm{score}_{\ell}(w \mid h, \mu_\ell) = u_w^{\top} \mathrm{Norm}\big[J_\ell (h - \mu_\ell)\big]
 ```
 
 - **자전거 VQA 예시**: 중심화하지 않으면 평균 patch state와 평균 image-token state의 상위에 ` photo`, ` image`, `**` 같은 **무의미한 token**이 올라온다. 중심화하면 ` bicycle`의 순위가 크게 오르고 무의미한 token은 상위에서 빠진다.
@@ -143,7 +143,7 @@ VLM에서 concept는 단어 token이 아니라 **이미지**로 들어오므로,
 **Vocabulary direction (Eq. 14–15)**: token score는 state에 대해 선형이므로, 각 token에 대응하는 방향을 정의할 수 있다.
 
 ```math
-\operatorname{score}^{*}_{\ell}(w \mid h) = u_w^{\top} J_\ell h = (J_\ell^{\top} u_w)^{\top} h,
+\mathrm{score}^{*}_{\ell}(w \mid h) = u_w^{\top} J_\ell h = (J_\ell^{\top} u_w)^{\top} h,
 \qquad
 \bar{\phi}_{\ell,w} = \frac{J_\ell^{\top} u_w}{\lVert J_\ell^{\top} u_w \rVert_2}
 ```
@@ -169,13 +169,13 @@ VLM에서 concept는 단어 token이 아니라 **이미지**로 들어오므로,
 2. 남은 차이 $`e_{t-1}`$과 내적이 가장 큰 token 방향을 고른다.
 
 ```math
-w_t = \operatorname*{arg\,max}_{w \in \mathcal{V}' \setminus \mathcal{W}_{t-1}} \bar{\phi}_{\ell,w}^{\top} e_{t-1}
+w_t = \arg\max_{w \in \mathcal{V}' \setminus \mathcal{W}_{t-1}} \bar{\phi}_{\ell,w}^{\top} e_{t-1}
 ```
 
 3. 지금까지 고른 방향 $`B_t`$로 모든 계수를 **NNLS로 다시 적합**한다.
 
 ```math
-\beta_t = \operatorname*{arg\,min}_{\beta \ge 0} \lVert \Delta z_{\ell,c} - B_t \beta \rVert_2^2,
+\beta_t = \arg\min_{\beta \ge 0} \lVert \Delta z_{\ell,c} - B_t \beta \rVert_2^2,
 \qquad
 e_t = \Delta z_{\ell,c} - B_t \beta_t
 ```
@@ -219,13 +219,13 @@ $`\mathrm{Y}(X) \in \{0, 1\}`$는 정답 여부, $`\bar{I}`$는 회색(blank) �
 - **Necessity**: 원래 run의 concept 성분을 회색 run의 것으로 바꾸면 답이 틀려지는가
 
 ```math
-N = \mathrm{Y}(I)\Big[1 - \mathrm{Y}\big(I;\, \operatorname{do}[P_{\ell,c} h_\ell = P_{\ell,c} \bar{h}_\ell]\big)\Big]
+N = \mathrm{Y}(I)\Big[1 - \mathrm{Y}\big(I;\, \mathrm{do}[P_{\ell,c} h_\ell = P_{\ell,c} \bar{h}_\ell]\big)\Big]
 ```
 
 - **Sufficiency**: 회색 run에 원래 concept 성분만 넣으면 답이 맞아지는가
 
 ```math
-S = \big[1 - \mathrm{Y}(\bar{I})\big]\, \mathrm{Y}\big(\bar{I};\, \operatorname{do}[P_{\ell,c} \bar{h}_\ell = P_{\ell,c} h_\ell]\big)
+S = \big[1 - \mathrm{Y}(\bar{I})\big]\, \mathrm{Y}\big(\bar{I};\, \mathrm{do}[P_{\ell,c} \bar{h}_\ell = P_{\ell,c} h_\ell]\big)
 ```
 
 - **NR, SR, NSR** = 평가 집합에서 $`N_i`$, $`S_i`$, $`N_i S_i`$의 평균
@@ -422,7 +422,7 @@ s^{H} = \cos\big(\tilde{h}_{\mathrm{I}},\; \tilde{h}_{\mathrm{T}}\big)
 **ReconCov (Eq. 34–35)**: 이미지 state를 concept 방향들의 non-negative 조합으로 얼마나 재구성할 수 있는가
 
 ```math
-\beta^{\star} = \operatorname*{arg\,min}_{\beta \ge 0} \lVert \tilde{h}_{\mathrm{I}} - B\beta \rVert_2^2,
+\beta^{\star} = \arg\min_{\beta \ge 0} \lVert \tilde{h}_{\mathrm{I}} - B\beta \rVert_2^2,
 \qquad
 R = 1 - \frac{\lVert \tilde{h}_{\mathrm{I}} - B\beta^{\star} \rVert_2^2}{\lVert \tilde{h}_{\mathrm{I}} \rVert_2^2}
 ```
